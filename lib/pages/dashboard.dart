@@ -2,8 +2,11 @@
 import 'package:airquality/custom_widgets/sensor_displayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Dashboard extends StatelessWidget {
+
+  double iconSize = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -56,28 +59,33 @@ class Dashboard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Column(
-              verticalDirection: VerticalDirection.down,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                SensorDisplayer(
-                  sensorTitle: "Temperature",
-                    sensorValue: "25°C"
-                ),
-                SensorDisplayer(
-                  sensorTitle: "CO2",
-                    sensorValue: "400"
-                )
-              ],
+            Expanded(
+              child: Column(
+                verticalDirection: VerticalDirection.down,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  SensorDisplayer(
+                    cardColor: Colors.amber,
+                    sensorTitle: "Temperature",
+                    sensorValue: "25°C",
+                    icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters),
+                    iconEvolution: FaIcon(Icons.arrow_upward, color: Colors.green, size: iconSize),
+                  ),
+                  SensorDisplayer(
+                    sensorTitle: "CO2",
+                    sensorValue: "2000",
+                    icon: FaIcon(FontAwesomeIcons.cloud),
+                    iconEvolution: FaIcon(FontAwesomeIcons.minus, color: Colors.grey, size: iconSize),
+                  ),
+                  SensorDisplayer(
+                    sensorTitle: "TVOC",
+                    sensorValue: "500",
+                    icon: FaIcon(FontAwesomeIcons.cloud),
+                    iconEvolution: FaIcon(Icons.arrow_downward, color: Colors.red, size: iconSize),
+                  ),
+                ],
+              ),
             ),
-            Column(
-              children: <Widget>[
-                SensorDisplayer(
-                  sensorTitle: "TVOC",
-                  sensorValue: "500",
-                ),
-              ],
-            )
           ],
         ),
       ],
