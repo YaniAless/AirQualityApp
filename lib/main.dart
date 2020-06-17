@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.lightGreen,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard),

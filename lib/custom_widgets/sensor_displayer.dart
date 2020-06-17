@@ -29,14 +29,56 @@ class _SensorDisplayerState extends State<SensorDisplayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Card(
+      color: widget.cardColor,
+      child: ListTile(
+        onTap: () => print(widget.sensorTitle),
+        title: Text(widget.sensorTitle, style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black54,
+        ),
+        ),
+        subtitle: Text("${widget.sensorValue} ${widget.sensorUnit}", style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.black54,
+        )),
+        leading: widget.icon,
+        trailing: widget.iconEvolution,
+      ),
+    );
+  }
+}
+
+/*
+ListTile(
+              onTap: () => print(widget.sensorTitle),
+              title: Text(widget.sensorTitle, style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+              ),
+              ),
+              subtitle: Text("${widget.sensorValue} ${widget.sensorUnit}", style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+              )),
+              leading: widget.icon,
+              trailing: widget.iconEvolution,
+            )
+ */
+
+/*
+Column(
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
             color: widget.cardColor,
             child: ListTile(
-              onTap: () {},
+              onTap: () => print(widget.sensorTitle),
               title: Text(widget.sensorTitle, style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -54,24 +96,5 @@ class _SensorDisplayerState extends State<SensorDisplayer> {
           ),
         ),
       ],
-    );
-  }
-}
-
-/*
-Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: AnimatedContainer(
-            duration: Duration(seconds: 1),
-            curve: Curves.bounceIn,
-            color: Colors.amber,
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width  / 3,
-            height: MediaQuery.of(context).size.width  / 3,
-            child: Text(widget.sensorValue, style: TextStyle(
-                fontSize: 24,
-                color: Colors.lightBlue
-            )),
-          ),
-        )
+    )
  */

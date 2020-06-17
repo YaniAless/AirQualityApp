@@ -46,8 +46,14 @@ class _SignInState extends State<SignIn> {
                     if(result == null)
                       print("Error signing in");
                     print("signed in $result");
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Connected as anonymous"),
+                          backgroundColor: Colors.deepOrange,
+                          duration: Duration(seconds: 1),
+                        )
+                    );
                     //if(_formKey.currentState.validate())
-                      // ok
                   },
                   child: Text("Connect" , style: Theme.of(context).textTheme.button),
                   color: Theme.of(context).textTheme.button.backgroundColor,

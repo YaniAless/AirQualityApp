@@ -48,7 +48,15 @@ class Dashboard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             RaisedButton(
-              onPressed: (){},
+              onPressed: (){
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Refresh"),
+                    backgroundColor: Colors.deepOrange,
+                    duration: Duration(seconds: 1),
+                  )
+                );
+              },
               child: Icon(
                 Icons.refresh,
                 color: Colors.black,
@@ -90,7 +98,7 @@ class Dashboard extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ],
