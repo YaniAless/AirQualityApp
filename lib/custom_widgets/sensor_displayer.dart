@@ -8,6 +8,7 @@ class SensorDisplayer extends StatefulWidget {
     this.cardColor,
     this.sensorTitle,
     this.sensorValue,
+    this.sensorUnit,
     this.icon,
     this.iconEvolution
   }): super(key: key);
@@ -15,6 +16,7 @@ class SensorDisplayer extends StatefulWidget {
   final Color cardColor;
   final String sensorTitle;
   final String sensorValue;
+  final String sensorUnit;
   final Widget icon;
   final Widget iconEvolution;
 
@@ -38,13 +40,13 @@ class _SensorDisplayerState extends State<SensorDisplayer> {
               title: Text(widget.sensorTitle, style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.lightBlue,
+                color: Colors.black54,
               ),
               ),
-              subtitle: Text(widget.sensorValue, style: TextStyle(
+              subtitle: Text("${widget.sensorValue} ${widget.sensorUnit}", style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.lightBlue,
+                color: Colors.black54,
               )),
               leading: widget.icon,
               trailing: widget.iconEvolution,

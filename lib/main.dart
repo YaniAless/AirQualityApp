@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
       title: appName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        buttonColor: Colors.lightBlue,
+        buttonColor: Colors.lightGreen,
         textTheme: TextTheme(
           button: TextStyle(
-            backgroundColor: Colors.lightBlue,
+            backgroundColor: Colors.lightGreen,
             color: Colors.white,
             fontSize: 24,
           ),
@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("Air Quality"),
+          backgroundColor: Colors.lightGreen,
         ),
         body: widget.pages[_currentIndex],// This trailing comma makes auto-formatting nicer for build methods.
       ),
