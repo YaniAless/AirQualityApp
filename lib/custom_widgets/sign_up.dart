@@ -13,6 +13,7 @@ class SignUp extends StatelessWidget {
             children: <Widget>[
               TextFormField(
                 decoration: const InputDecoration(hintText: "Enter your email"),
+                textCapitalization: TextCapitalization.none,
                 validator: (value) {
                   if(value.isEmpty)
                     return 'Please enter some text';

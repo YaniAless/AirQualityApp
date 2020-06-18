@@ -22,6 +22,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               TextFormField(
                 decoration: const InputDecoration(hintText: "Enter your email"),
+                textCapitalization: TextCapitalization.none,
                 validator: (value) {
                   if(value.isEmpty)
                     return 'Please enter your email';
@@ -30,6 +31,7 @@ class _SignInState extends State<SignIn> {
               ),
               TextFormField(
                 decoration: const InputDecoration(hintText: "Enter your password"),
+                textCapitalization: TextCapitalization.none,
                 obscureText: true,
                 validator: (value) {
                   if(value.isEmpty)
