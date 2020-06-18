@@ -12,7 +12,6 @@
 .pub-cache/
 .pub/
 build/
-pubspec.lock
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -201,3 +200,4 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/git,flutter,androidstudio
+/pubspec.lock

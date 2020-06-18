@@ -1,3 +1,4 @@
+import 'package:airquality/app_localizations.dart';
 import 'package:airquality/models/user.dart';
 import 'package:airquality/pages/dashboard.dart';
 import 'package:airquality/pages/parameters.dart';
@@ -7,6 +8,7 @@ import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,8 +32,36 @@ class MyApp extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 24,
               ),
-            )
+            ),
         ),
+        // List all of the app's supported locales here
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('fr', 'FR'),
+        ],
+        // These delegates make sure that the localization data for the proper language is loaded
+        localizationsDelegates: [
+          // THIS CLASS WILL BE ADDED LATER
+          // A class which loads the translations from JSON files
+          AppLocalizations.delegate,
+          // Built-in localization of basic text for Material widgets
+          GlobalMaterialLocalizations.delegate,
+          // Built-in localization for text direction LTR/RTL
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        // Returns a locale which will be used by the app
+        localeResolutionCallback: (locale, supportedLocales) {
+          // Check if the current device locale is supported
+          for (var supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode &&
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          // If the locale of the device is not supported, use the first one
+          // from the list (English, in this case).
+          return supportedLocales.first;
+        },
         home: MyHomePage(title: appName),
       ),
     );
@@ -70,19 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard),
-              title: Text('Dashboard'),
+              title: Text(AppLocalizations.of(context).translate("dashboard_page_label")),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.table_chart),
-              title: Text('Stats'),
+              title: Text(AppLocalizations.of(context).translate("stats_page_label")),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              title: Text('Account'),
+              title: Text(AppLocalizations.of(context).translate("account_page_label")),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.build),
-              title: Text('Parameters'),
+              title: Text(AppLocalizations.of(context).translate("params_page_label")),
             ),
           ],
           onTap: (index) {

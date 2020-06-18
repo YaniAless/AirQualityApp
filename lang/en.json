@@ -1,0 +1,16 @@
+{
+  "dashboard_page_label": "Dashboard",
+  "stats_page_label": "Statistiques",
+  "account_page_label": "My Account",
+  "params_page_label": "Parameters",
+  "dashboard_title": "Realtime data",
+  "connected_to": "Connected to :",
+  "empty_device" : "No device found",
+  "temperature_title": "Temperature",
+  "temperature_unit_short": "°C",
+  "co2_title": "CO2",
+  "co2_unit_short": "ppm",
+  "tvoc_title": "TVOC",
+  "tvoc_unit_short": "ppb",
+  "humidity_name": "Humidity"
+}

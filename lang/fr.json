@@ -1,0 +1,16 @@
+{
+  "dashboard_page_label": "Tableau de Bord",
+  "stats_page_label": "Statistiques",
+  "account_page_label": "Mon Compte",
+  "params_page_label": "Paramètres",
+  "dashboard_title": "Données en temps réél",
+  "connected_to": "Connecté à :",
+  "empty_device" : "Aucun appareil trouvé",
+  "temperature_title": "Température",
+  "temperature_unit_short": "°C",
+  "co2_title": "CO2",
+  "co2_unit_short": "ppm",
+  "tvoc_title": "COV",
+  "tvoc_unit_short": "ppb",
+  "humidity_name": "Humidité"
+}

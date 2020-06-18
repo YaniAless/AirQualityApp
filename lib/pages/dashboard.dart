@@ -1,4 +1,5 @@
 
+import 'package:airquality/app_localizations.dart';
 import 'package:airquality/custom_widgets/sensor_displayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class Dashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Text("Realtime data", style: TextStyle(
+                child: Text(AppLocalizations.of(context).translate("dashboard_title"), style: TextStyle(
                   fontSize: 26,
                 ),
                 ),
@@ -33,13 +34,13 @@ class Dashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Text("Connected to :"),
+                child: Text(AppLocalizations.of(context).translate("connected_to")),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Text("DEVICE_NAME"),
+                child: Text(AppLocalizations.of(context).translate("empty_device")),
               ),
             )
           ],
@@ -74,25 +75,25 @@ class Dashboard extends StatelessWidget {
                 children: <Widget>[
                   SensorDisplayer(
                     cardColor: Colors.amber,
-                    sensorTitle: "Temperature",
+                    sensorTitle: AppLocalizations.of(context).translate("temperature_title"),
                     sensorValue: "25",
-                    sensorUnit: "°C",
+                    sensorUnit: AppLocalizations.of(context).translate("temperature_unit_short"),
                     icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters, size: iconSize),
                     iconEvolution: FaIcon(Icons.arrow_upward, color: Colors.green, size: iconEvolSize),
                   ),
                   SensorDisplayer(
                     cardColor: Colors.redAccent,
-                    sensorTitle: "CO2",
+                    sensorTitle: AppLocalizations.of(context).translate("co2_title"),
                     sensorValue: "2000",
-                    sensorUnit: "ppm",
+                    sensorUnit: AppLocalizations.of(context).translate("co2_unit_short"),
                     icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
                     iconEvolution: FaIcon(FontAwesomeIcons.minus, color: Colors.grey, size: iconEvolSize),
                   ),
                   SensorDisplayer(
                     cardColor: Colors.grey,
-                    sensorTitle: "TVOC",
+                    sensorTitle: AppLocalizations.of(context).translate("tvoc_title"),
                     sensorValue: "500",
-                    sensorUnit: "ppm",
+                    sensorUnit: AppLocalizations.of(context).translate("tvoc_unit_short"),
                     icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
                     iconEvolution: FaIcon(Icons.arrow_downward, color: Colors.red, size: iconEvolSize),
                   ),
