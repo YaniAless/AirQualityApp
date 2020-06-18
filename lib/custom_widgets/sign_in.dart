@@ -2,6 +2,8 @@
 import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
 
+import '../app_localizations.dart';
+
 class SignIn extends StatefulWidget {
   @override
   _SignInState createState() => _SignInState();
@@ -21,21 +23,21 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: const InputDecoration(hintText: "Enter your email"),
+                decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("email_placeholder")),
                 textCapitalization: TextCapitalization.none,
                 validator: (value) {
                   if(value.isEmpty)
-                    return 'Please enter your email';
+                    return AppLocalizations.of(context).translate("email_error_msg");
                   return null;
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(hintText: "Enter your password"),
+                decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("pwd_placeholder")),
                 textCapitalization: TextCapitalization.none,
                 obscureText: true,
                 validator: (value) {
                   if(value.isEmpty)
-                    return 'Please enter password';
+                    return AppLocalizations.of(context).translate("pwd_error_msg");
                   return null;
                 },
               ),
@@ -56,7 +58,7 @@ class _SignInState extends State<SignIn> {
                     );
                     //if(_formKey.currentState.validate())
                   },
-                  child: Text("Connect" , style: Theme.of(context).textTheme.button),
+                  child: Text(AppLocalizations.of(context).translate("signing_in_button") , style: Theme.of(context).textTheme.button),
                   color: Theme.of(context).textTheme.button.backgroundColor,
                 ),
               )

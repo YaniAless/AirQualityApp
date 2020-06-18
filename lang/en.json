@@ -12,5 +12,14 @@
   "co2_unit_short": "ppm",
   "tvoc_title": "TVOC",
   "tvoc_unit_short": "ppb",
-  "humidity_name": "Humidity"
+  "humidity_name": "Humidity",
+  "email_placeholder": "email address",
+  "email_error_msg": "Please insert a valid email address",
+  "pwd_placeholder": "password",
+  "pwd_error_msg": "Please insert a valid password",
+  "signing_in_button": "Signing In",
+  "signing_up_button": "Signing Up",
+  "sign_in_button": "Sign In",
+  "sign_up_button": "Sign Up",
+  "not_connected_msg": "You are currently not connected"
 }
