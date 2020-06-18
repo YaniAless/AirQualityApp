@@ -1,8 +1,12 @@
+import 'package:airquality/models/user.dart';
 import 'package:airquality/pages/dashboard.dart';
-import 'package:airquality/pages/login.dart';
 import 'package:airquality/pages/parameters.dart';
-import 'package:airquality/pages/statistiques.dart';
+import 'package:airquality/pages/wrappers/account_wrapper.dart';
+import 'package:airquality/pages/wrappers/stats_wrapper.dart';
+import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,20 +17,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        buttonColor: Colors.lightGreen,
-        textTheme: TextTheme(
-          button: TextStyle(
-            backgroundColor: Colors.lightGreen,
-            color: Colors.white,
-            fontSize: 24,
-          ),
-        )
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        title: appName,
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            buttonColor: Colors.lightGreen,
+            textTheme: TextTheme(
+              button: TextStyle(
+                backgroundColor: Colors.lightGreen,
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            )
+        ),
+        home: MyHomePage(title: appName),
       ),
-      home: MyHomePage(title: appName),
     );
   }
 }
@@ -35,7 +42,12 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-  final List<Widget> pages = [Dashboard(), Statistiques(), Login(), Parameters()];
+  final List<Widget> pages = [
+    Dashboard(),
+    StatsWrapper(),
+    AccountWrapper(),
+    Parameters()
+  ];
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -47,6 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
@@ -64,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              title: Text('Profile'),
+              title: Text('Account'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.build),
@@ -78,11 +92,19 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         appBar: AppBar(
-          centerTitle: true,
-          title: Text("Air Quality"),
-          backgroundColor: Colors.lightGreen,
+            centerTitle: true,
+            title: Text("Air Quality"),
+            backgroundColor: Colors.lightGreen,
+            actions: <Widget>[
+              user != null ? FlatButton.icon(
+                  onPressed: () => AuthService().signOut(),
+                  icon: FaIcon(FontAwesomeIcons.signOutAlt),
+                  label: Text("Sign Out"))
+                  : FaIcon(FontAwesomeIcons.globe)
+            ]
         ),
-        body: widget.pages[_currentIndex],// This trailing comma makes auto-formatting nicer for build methods.
+        body: widget
+            .pages[_currentIndex], // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

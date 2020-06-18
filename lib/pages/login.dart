@@ -1,5 +1,5 @@
-import 'package:airquality/custom_widgets/signIn.dart';
-import 'package:airquality/custom_widgets/signUp.dart';
+import 'package:airquality/custom_widgets/sign_in.dart';
+import 'package:airquality/custom_widgets/sign_up.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {

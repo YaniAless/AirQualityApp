@@ -1,8 +1,6 @@
-import 'package:airquality/custom_widgets/sensor_displayer.dart';
 import 'package:airquality/custom_widgets/sensor_label.dart';
 import 'package:airquality/models/case.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Statistiques extends StatelessWidget {
 

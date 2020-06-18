@@ -1,4 +1,5 @@
-import 'package:airquality/firebase/authentication.dart';
+
+import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -13,8 +14,6 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Column(
       children: <Widget>[
         Form(
