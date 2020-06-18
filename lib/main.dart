@@ -50,11 +50,11 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
         ],
         // Returns a locale which will be used by the app
-        localeResolutionCallback: (locale, supportedLocales) {
+        localeListResolutionCallback: (locale, supportedLocales) {
           // Check if the current device locale is supported
           for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
+            if (supportedLocale.languageCode == locale.first.languageCode &&
+                supportedLocale.countryCode == locale.first.countryCode) {
               return supportedLocale;
             }
           }
