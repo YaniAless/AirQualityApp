@@ -23,9 +23,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0,20,0,0),
                 child: RaisedButton(
-                  onPressed: (){
-                    setState(() => isSigningUp = false);
-                  },
+                  onPressed: () => setState(() => isSigningUp = false),
                   child: Text(AppLocalizations.of(context).translate("sign_in_button"), style: Theme.of(context).textTheme.button),
                   color: Theme.of(context).textTheme.button.backgroundColor,
                 ),
@@ -33,9 +31,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0,20,0,0),
                 child: RaisedButton(
-                  onPressed: (){
-                    setState(() => isSigningUp = true);
-                  },
+                  onPressed: () => setState(() => isSigningUp = true),
                   child: Text(AppLocalizations.of(context).translate("sign_up_button") , style: Theme.of(context).textTheme.button),
                   color: Theme.of(context).textTheme.button.backgroundColor,
                 ),

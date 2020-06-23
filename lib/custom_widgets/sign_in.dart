@@ -34,40 +34,35 @@ class _SignInState extends State<SignIn> {
                 TextFormField(
                   decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("email_placeholder")),
                   textCapitalization: TextCapitalization.none,
-                  onChanged: (value){
-                    if(_isEmailValidated(value)) {
-                      setState(() => email = value);
-                    }else
-                      print("Email not correct");
-                  },
-                  validator: (value) {
-                    if(value.isEmpty && !_isEmailValidated(email))
+                  validator: (email) {
+                    if(email.isEmpty || !_isEmailValidated(email))
                       return AppLocalizations.of(context).translate("email_error_msg");
-                    return value;
+                    email = email;
+                    return null;
                   },
+                  onSaved:(emailValue) => setState(() => email = emailValue),
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
                   decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("pwd_placeholder")),
                   textCapitalization: TextCapitalization.none,
                   obscureText: true,
-                  onChanged: (pwd){
-                    setState(() {
-                      pwd = pwd;
-                    });
-                  },
-                  validator: (value) {
-                    if(value.isEmpty)
+                  validator: (pwd) {
+                    if(pwd.isEmpty)
                       return AppLocalizations.of(context).translate("pwd_error_msg");
                     return null;
                   },
+                  onSaved:(pwdValue) => setState(() => pwd = pwdValue),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(25,25,25,25),
                   child: RaisedButton(
                     onPressed: () async {
-                      print(email);
-                      print(pwd);
+                      if(_formKey.currentState.validate()){
+                        _formKey.currentState.save();
+                        print(email);
+                        print(pwd);
+                      }
                     },
                     child: Text(AppLocalizations.of(context).translate("signing_in_button") , style: Theme.of(context).textTheme.button),
                     color: Theme.of(context).textTheme.button.backgroundColor,

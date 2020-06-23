@@ -21,5 +21,7 @@
   "signing_up_button": "Signing Up",
   "sign_in_button": "Sign In",
   "sign_up_button": "Sign Up",
+  "registration_succeed": "Your account has been created succesfully.",
+  "registration_failed": "Your registration has failed, try again.",
   "not_connected_msg": "You are currently not connected"
 }

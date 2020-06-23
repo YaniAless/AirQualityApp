@@ -21,5 +21,7 @@
   "signing_up_button": "S'inscrire",
   "sign_in_button": "Connexion",
   "sign_up_button": "Inscription",
+  "registration_succeed": "Votre inscription à été un succès.",
+  "registration_failed": "Votre inscription n'a pas pu aboutir.",
   "not_connected_msg": "Vous n'êtes actuellement pas connecté"
 }
