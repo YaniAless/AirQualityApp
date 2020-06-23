@@ -17,11 +17,14 @@
   "email_error_msg": "Veuillez insérer une adresse mail valide",
   "pwd_placeholder": "Mot de passe",
   "pwd_error_msg": "Veuillez insérer un Mot de passe valide",
+  "sign_out_button": "Deconnexion",
   "signing_in_button": "Se Connecter",
   "signing_up_button": "S'inscrire",
   "sign_in_button": "Connexion",
   "sign_up_button": "Inscription",
   "registration_succeed": "Votre inscription à été un succès.",
   "registration_failed": "Votre inscription n'a pas pu aboutir.",
+  "signing_in_succeed": "Bienvenue ! Vous êtes à présent connecté !",
+  "signing_in_failed": "Impossible de trouver cet utilisateur, essayez encore.",
   "not_connected_msg": "Vous n'êtes actuellement pas connecté"
 }

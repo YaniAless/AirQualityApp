@@ -22,6 +22,16 @@ class _SignInState extends State<SignIn> {
     return email.contains(new RegExp(r'[a-z0-9A-Z-.]+1*@[a-zA-Z]+\.[a-z]+'));
   }
 
+  _displaySnackBarWithMessage(String msg){
+    Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(msg),
+          backgroundColor: Colors.deepOrange,
+          duration: Duration(seconds: 1),
+        )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,8 +70,11 @@ class _SignInState extends State<SignIn> {
                     onPressed: () async {
                       if(_formKey.currentState.validate()){
                         _formKey.currentState.save();
-                        print(email);
-                        print(pwd);
+                        dynamic result = await _auth.signInWithEmailAndPwd(email, pwd);
+                        if(result == null)
+                          _displaySnackBarWithMessage(AppLocalizations.of(context).translate("signing_in_failed"));
+                        else
+                          _displaySnackBarWithMessage(AppLocalizations.of(context).translate("signing_in_succeed"));
                       }
                     },
                     child: Text(AppLocalizations.of(context).translate("signing_in_button") , style: Theme.of(context).textTheme.button),

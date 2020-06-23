@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
               user != null ? FlatButton.icon(
                   onPressed: () => AuthService().signOut(),
                   icon: FaIcon(FontAwesomeIcons.signOutAlt),
-                  label: Text("Sign Out"))
+                  label: Text(AppLocalizations.of(context).translate("sign_out_button")))
                   : FaIcon(FontAwesomeIcons.globe)
             ]
         ),

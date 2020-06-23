@@ -17,11 +17,14 @@
   "email_error_msg": "Please insert a valid email address",
   "pwd_placeholder": "password",
   "pwd_error_msg": "Please insert a valid password",
+  "sign_out_button": "Sign Out",
   "signing_in_button": "Signing In",
   "signing_up_button": "Signing Up",
   "sign_in_button": "Sign In",
   "sign_up_button": "Sign Up",
   "registration_succeed": "Your account has been created succesfully.",
   "registration_failed": "Your registration has failed, try again.",
+  "signing_in_succeed": "Welcome ! You are now logged in !",
+  "signing_in_failed": "Could not find that user, please try again.",
   "not_connected_msg": "You are currently not connected"
 }

@@ -54,7 +54,7 @@ class Dashboard extends StatelessWidget {
                   SnackBar(
                     content: Text("Refresh"),
                     backgroundColor: Colors.deepOrange,
-                    duration: Duration(seconds: 1),
+                    duration: Duration(seconds: 2),
                   )
                 );
               },
