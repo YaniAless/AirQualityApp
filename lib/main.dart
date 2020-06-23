@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           type: BottomNavigationBarType.fixed,
