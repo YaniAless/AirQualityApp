@@ -2,6 +2,7 @@
   "dashboard_page_label": "Tableau de Bord",
   "stats_page_label": "Statistiques",
   "account_page_label": "Mon Compte",
+  "account_page_title": "Mon Compte",
   "params_page_label": "Paramètres",
   "dashboard_title": "Données en temps réél",
   "connected_to": "Connecté à :",
@@ -26,5 +27,5 @@
   "registration_failed": "Votre inscription n'a pas pu aboutir.",
   "signing_in_succeed": "Bienvenue ! Vous êtes à présent connecté !",
   "signing_in_failed": "Impossible de trouver cet utilisateur, essayez encore.",
-  "not_connected_msg": "Vous n'êtes actuellement pas connecté"
+  "not_connected_msg": "Vous n'êtes pas connecté"
 }

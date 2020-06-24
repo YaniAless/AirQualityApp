@@ -49,12 +49,14 @@ class _LoginState extends State<Login> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(35),
-              child: Text(AppLocalizations.of(context).translate("not_connected_msg"), style: TextStyle(
-                fontSize: 20,
-                color: Colors.pink,
-              ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(35),
+                child: Text(AppLocalizations.of(context).translate("not_connected_msg"), style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.pink,
+                ),
+                ),
               ),
             )
           ],

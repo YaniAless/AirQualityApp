@@ -126,13 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
             centerTitle: true,
             title: Text("Air Quality"),
             backgroundColor: Colors.lightGreen,
-            actions: <Widget>[
-              user != null ? FlatButton.icon(
-                  onPressed: () => AuthService().signOut(),
-                  icon: FaIcon(FontAwesomeIcons.signOutAlt),
-                  label: Text(AppLocalizations.of(context).translate("sign_out_button")))
-                  : FaIcon(FontAwesomeIcons.globe)
-            ]
         ),
         body: widget
             .pages[_currentIndex], // This trailing comma makes auto-formatting nicer for build methods.

@@ -2,6 +2,7 @@
   "dashboard_page_label": "Dashboard",
   "stats_page_label": "Statistiques",
   "account_page_label": "My Account",
+  "account_page_title": "Mon Compte",
   "params_page_label": "Parameters",
   "dashboard_title": "Realtime data",
   "connected_to": "Connected to :",

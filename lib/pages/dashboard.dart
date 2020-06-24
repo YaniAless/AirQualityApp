@@ -97,6 +97,14 @@ class Dashboard extends StatelessWidget {
                     icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
                     iconEvolution: FaIcon(Icons.arrow_downward, color: Colors.red, size: iconEvolSize),
                   ),
+                  SensorDisplayer(
+                    cardColor: Colors.lightBlueAccent,
+                    sensorTitle: AppLocalizations.of(context).translate("humidity_name"),
+                    sensorValue: "44",
+                    sensorUnit: "%",
+                    icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
+                    iconEvolution: FaIcon(Icons.arrow_upward, color: Colors.green, size: iconEvolSize),
+                  ),
                 ],
               ),
             )
