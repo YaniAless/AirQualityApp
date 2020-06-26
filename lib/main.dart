@@ -6,9 +6,8 @@ import 'package:airquality/pages/wrappers/account_wrapper.dart';
 import 'package:airquality/pages/wrappers/stats_wrapper.dart';
 import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,15 +23,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: appName,
         theme: ThemeData(
-            primarySwatch: Colors.blue,
-            buttonColor: Colors.lightGreen,
-            textTheme: TextTheme(
-              button: TextStyle(
-                backgroundColor: Colors.lightGreen,
-                color: Colors.white,
-                fontSize: 24,
-              ),
+          primarySwatch: Colors.blue,
+          buttonColor: Colors.lightGreen,
+          textTheme: TextTheme(
+            button: TextStyle(
+              backgroundColor: Colors.lightGreen,
+              color: Colors.white,
+              fontSize: 24,
             ),
+          ),
         ),
         // List all of the app's supported locales here
         supportedLocales: [
@@ -46,6 +45,7 @@ class MyApp extends StatelessWidget {
           AppLocalizations.delegate,
           // Built-in localization of basic text for Material widgets
           GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
           // Built-in localization for text direction LTR/RTL
           GlobalWidgetsLocalizations.delegate,
         ],
@@ -84,7 +84,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _currentIndex = 0;
 
   @override
@@ -101,19 +100,23 @@ class _MyHomePageState extends State<MyHomePage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard),
-              title: Text(AppLocalizations.of(context).translate("dashboard_page_label")),
+              title: Text(AppLocalizations.of(context)
+                  .translate("dashboard_page_label")),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.table_chart),
-              title: Text(AppLocalizations.of(context).translate("stats_page_label")),
+              title: Text(
+                  AppLocalizations.of(context).translate("stats_page_label")),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              title: Text(AppLocalizations.of(context).translate("account_page_label")),
+              title: Text(
+                  AppLocalizations.of(context).translate("account_page_label")),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.build),
-              title: Text(AppLocalizations.of(context).translate("params_page_label")),
+              title: Text(
+                  AppLocalizations.of(context).translate("params_page_label")),
             ),
           ],
           onTap: (index) {
@@ -123,12 +126,12 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         appBar: AppBar(
-            centerTitle: true,
-            title: Text("Air Quality"),
-            backgroundColor: Colors.lightGreen,
+          centerTitle: true,
+          title: Text("Air Quality"),
+          backgroundColor: Colors.lightGreen,
         ),
-        body: widget
-            .pages[_currentIndex], // This trailing comma makes auto-formatting nicer for build methods.
+        body: widget.pages[
+            _currentIndex], // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
