@@ -7,7 +7,7 @@ class ESPServices {
 
   String host = "http://192.168.4.1:8080";
 
-  Future<ESPSettings> getSettings() async {
+  Future<ESP> getSettings() async {
 
     final response = await http.get("${this.host}/settings");
 
@@ -16,7 +16,7 @@ class ESPServices {
     }
 
     final jsonBody = json.decode(response.body);
-    final ESPSettings settings = ESPSettings(sensorsNumber: jsonBody["settings"]["sensorsNumber"], caseName: jsonBody["settings"]["name"]);
+    final ESP settings = ESP(caseName: jsonBody["caseName"], sensorsNumber: jsonBody["sensorsNumber"]);
 
     return settings;
   }

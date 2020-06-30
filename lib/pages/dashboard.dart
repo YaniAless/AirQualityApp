@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Dashboard extends StatelessWidget {
-  ESPSettings settings = ESPSettings(caseName: "CASE_NOT_FOUND", sensorsNumber: "4");
+  ESP settings = ESP(caseName: "CASE_NOT_FOUND", sensorsNumber: "4");
 
   double iconSize = 30;
   double iconEvolSize = 50;

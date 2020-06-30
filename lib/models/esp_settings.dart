@@ -1,6 +1,6 @@
-class ESPSettings{
+class ESP{
   final String caseName;
   final String sensorsNumber;
 
-  ESPSettings({ this.caseName, this.sensorsNumber });
+  ESP({ this.caseName, this.sensorsNumber });
 }
