@@ -1,5 +1,5 @@
-import 'package:airquality/custom_widgets/sign_in.dart';
-import 'package:airquality/custom_widgets/sign_up.dart';
+import 'package:airquality/components/sign_in.dart';
+import 'package:airquality/components/sign_up.dart';
 import 'package:flutter/material.dart';
 
 import '../app_localizations.dart';

@@ -1,5 +1,5 @@
 import 'package:airquality/app_localizations.dart';
-import 'package:airquality/custom_widgets/sensor_displayer.dart';
+import 'package:airquality/components/sensor_displayer.dart';
 import 'package:airquality/models/esp_settings.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/cupertino.dart';
