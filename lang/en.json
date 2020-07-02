@@ -27,5 +27,6 @@
   "registration_failed": "Your registration has failed, try again.",
   "signing_in_succeed": "Welcome ! You are now logged in !",
   "signing_in_failed": "Could not find that user, please try again.",
-  "not_connected_msg": "You are currently not connected"
+  "not_connected_msg": "You are currently not connected",
+  "no_sensor_value": "No data available"
 }

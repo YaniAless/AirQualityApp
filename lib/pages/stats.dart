@@ -1,4 +1,4 @@
-import 'package:airquality/components/sensor_label.dart';
+import 'package:airquality/components/sensors/sensor_label.dart';
 import 'package:airquality/models/case.dart';
 import 'package:flutter/material.dart';
 
