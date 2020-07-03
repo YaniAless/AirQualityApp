@@ -27,5 +27,6 @@
   "registration_failed": "Votre inscription n'a pas pu aboutir.",
   "signing_in_succeed": "Bienvenue ! Vous êtes à présent connecté !",
   "signing_in_failed": "Impossible de trouver cet utilisateur, essayez encore.",
-  "not_connected_msg": "Vous n'êtes pas connecté"
+  "not_connected_msg": "Vous n'êtes pas connecté",
+  "no_sensor_value": "Aucune données disponible"
 }
