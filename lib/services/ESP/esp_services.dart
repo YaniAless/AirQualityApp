@@ -9,6 +9,7 @@ class ESPServices {
   static final String host = "http://192.168.4.1:8080";
   static final int port = 8080;
 
+
   static Future<ESP> getSettings() async {
 
     final response = await http.get("$host/settings");
@@ -24,58 +25,31 @@ class ESPServices {
     return settings;
   }
 
-  static Stream<int> get temperature async*{
-    Future.delayed(Duration(seconds: 10));
-    final response = await http.get("$host/temp");
-
-    if(response.statusCode != 200){
-      throw Error();
-    }
-    final jsonBody = json.decode(response.body);
-    yield jsonBody;
-  }
-
-  static Stream<int> get humidity async*{
-    Future.delayed(Duration(seconds: 10));
-    final response = await http.get("$host/humidity");
+  static Future<int> getDataFromESPSensors(String path) async {
+    Future.delayed(Duration(seconds: 2));
+    final response = await http.get("$host$path");
 
     if(response.statusCode != 200){
       throw Error();
     }
 
     final jsonBody = json.decode(response.body);
-    yield jsonBody;
-  }
-
-  static Future<int> getCO2Data() async {
-
-    final response = await http.get("$host/co2");
-
-    if(response.statusCode != 200){
-      throw Error();
-    }
-
-    final jsonBody = json.decode(response.body);
-
     return jsonBody;
   }
 
-
-  static Stream<int> get co2 async*{
+  static Future<int> getCO2() async {
     Future.delayed(Duration(seconds: 2));
-
     final response = await http.get("$host/co2");
 
     if(response.statusCode != 200){
-      print(response.statusCode);
       throw Error();
     }
 
     final jsonBody = json.decode(response.body);
-    yield jsonBody;
+    return jsonBody;
   }
 
-  static Stream<int> get tvoc async*{
+  static Future<int> getTVOC() async {
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/tvoc");
 
@@ -84,6 +58,29 @@ class ESPServices {
     }
 
     final jsonBody = json.decode(response.body);
-    yield jsonBody;
+    return jsonBody;
+  }
+
+  static Future<double> getTemp() async {
+    final response = await http.get("$host/temp");
+
+    if(response.statusCode != 200){
+      throw Error();
+    }
+
+    final jsonBody = json.decode(response.body);
+    //print(jsonBody);
+    return jsonBody;
+  }
+
+  static Future<int> getHumidity() async {
+    final response = await http.get("$host/humidity");
+
+    if(response.statusCode != 200){
+      throw Error();
+    }
+
+    final jsonBody = json.decode(response.body);
+    return jsonBody;
   }
 }

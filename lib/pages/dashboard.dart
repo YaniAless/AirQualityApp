@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/co2.dart';
 import 'package:airquality/components/sensors/humidity.dart';
@@ -10,9 +12,6 @@ import 'package:flutter/material.dart';
 class Dashboard extends StatelessWidget {
 
   dynamic settings;
-
-  double iconSize = 30;
-  double iconEvolSize = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,6 @@ class Dashboard extends StatelessWidget {
                       }
                       if (snapshot.hasData) {
                         settings = snapshot.data;
-                        print(settings);
                       }
                       return Text(settings.caseName);
                       break;

@@ -12,23 +12,52 @@ class CO2Sensor extends StatefulWidget {
 }
 
 class _CO2SensorState extends State<CO2Sensor> {
-  double iconSize = 30;
-  double iconEvolSize = 50;
+
+  final double iconSize = 30;
+  final double iconEvolSize = 50;
+  final int refreshDelay = 5;
 
   // Sensor Data
-  Future<int> currentValue = ESPServices.getCO2Data();
+  int currentValue;
+  bool firstLoad = true;
+
+  refresh(){
+    Timer.periodic(Duration(seconds: refreshDelay), (timer) {
+      setState(() {
+        firstLoad = false;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    refresh();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
-      future: currentValue,
+      future: ESPServices.getCO2(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.waiting:
-            return CircularProgressIndicator();
+            return SensorDisplayer(
+              cardColor: Colors.redAccent,
+              sensorTitle:
+              AppLocalizations.of(context).translate("co2_title"),
+              sensorValue: "---",
+              sensorUnit: AppLocalizations.of(context)
+                  .translate("co2_unit_short"),
+              icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
+              iconEvolution: FaIcon(FontAwesomeIcons.minus,
+                  color: Colors.grey, size: iconEvolSize),
+            );
             break;
           case ConnectionState.done:
             if(snapshot.hasData){
+              currentValue = snapshot.data;
               return SensorDisplayer(
                 cardColor: Colors.redAccent,
                 sensorTitle:
