@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
@@ -14,12 +16,12 @@ class _CO2SensorState extends State<CO2Sensor> {
   double iconEvolSize = 50;
 
   // Sensor Data
-  int currentValue = 0;
+  Future<int> currentValue = ESPServices.getCO2Data();
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<int>(
-      stream: ESPServices.co2,
+    return FutureBuilder<int>(
+      future: currentValue,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.waiting:
@@ -27,12 +29,11 @@ class _CO2SensorState extends State<CO2Sensor> {
             break;
           case ConnectionState.done:
             if(snapshot.hasData){
-              currentValue == 0 ? snapshot.data.toString() : currentValue;
               return SensorDisplayer(
                 cardColor: Colors.redAccent,
                 sensorTitle:
                 AppLocalizations.of(context).translate("co2_title"),
-                sensorValue: currentValue.toString(),
+                sensorValue: snapshot.data.toString(),
                 sensorUnit: AppLocalizations.of(context)
                     .translate("co2_unit_short"),
                 icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),

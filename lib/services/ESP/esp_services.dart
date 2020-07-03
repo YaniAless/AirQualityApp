@@ -9,8 +9,6 @@ class ESPServices {
   static final String host = "http://192.168.4.1:8080";
   static final int port = 8080;
 
-  final _controller = StreamController<int>();
-
   static Future<ESP> getSettings() async {
 
     final response = await http.get("$host/settings");
@@ -47,6 +45,19 @@ class ESPServices {
 
     final jsonBody = json.decode(response.body);
     yield jsonBody;
+  }
+
+  static Future<int> getCO2Data() async {
+
+    final response = await http.get("$host/co2");
+
+    if(response.statusCode != 200){
+      throw Error();
+    }
+
+    final jsonBody = json.decode(response.body);
+
+    return jsonBody;
   }
 
 
