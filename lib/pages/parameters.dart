@@ -5,7 +5,13 @@ class Parameters extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row()
+        Row(
+          children: <Widget>[
+            Card(
+              child: Text("Parameters"),
+            )
+          ],
+        )
       ],
     );
   }

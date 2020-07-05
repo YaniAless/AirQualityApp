@@ -25,9 +25,9 @@ class ESPServices implements ESPService{
     return settings;
   }
 
-  Future<int> getDataFromESPSensors(String path) async {
+  Future<int> getDataFromAllESPSensors() async {
     Future.delayed(Duration(seconds: 2));
-    final response = await http.get("$host$path");
+    final response = await http.get("$host/sensors/all");
 
     if(response.statusCode != 200){
       throw Error();

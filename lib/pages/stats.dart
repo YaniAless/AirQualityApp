@@ -3,6 +3,7 @@ import 'package:airquality/models/esp.dart';
 import 'package:flutter/material.dart';
 
 class Stats extends StatelessWidget {
+
   final List<ESP> cases = [
     ESP(caseName:"ESP1", caseType: "AQ1", sensors:["Temperature","Humidity","CO2","TVOC"]),
     ESP(caseName:"ESP2", caseType: "AQ1", sensors:["Temperature","Humidity","CO2","TVOC"])

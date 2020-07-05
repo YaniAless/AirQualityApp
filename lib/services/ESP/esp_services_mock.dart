@@ -30,7 +30,7 @@ class MockESPServices implements ESPService{
   }
 
   @override
-  Future<int> getDataFromESPSensors(String path) {
+  Future<int> getDataFromAllESPSensors() {
     // TODO: implement getDataFromESPSensors
     throw UnimplementedError();
   }
