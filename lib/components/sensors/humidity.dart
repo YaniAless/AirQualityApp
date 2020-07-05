@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
-import 'package:airquality/services/ESP/esp_services.dart';
+import 'package:airquality/models/sensor.dart';
+import 'package:airquality/services/ESP/esp_services_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,28 +18,29 @@ class _HumiditySensorState extends State<HumiditySensor> {
   final int refreshDelay = 30;
 
   // Sensor Data
-  int currentValue;
-  bool firstLoad = true;
+  Sensor humiditySensor = Sensor();
 
-  refresh(){
-    Timer.periodic(Duration(seconds: refreshDelay), (timer) {
-      setState(() {
-        firstLoad = false;
-      });
+  // Refreshing
+  Timer timer;
+  bool _firstLoad = true;
+  bool _enableRefresh = true;
+
+  refresh(bool enableRefresh){
+    timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) {
+      if(_enableRefresh){
+        setState(() {
+          _firstLoad = false;
+          humiditySensor.oldValue = humiditySensor.currentValue;
+        });
+      }
     });
-  }
-
-  @override
-  void initState() {
-    refresh();
-    super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
-      future: ESPServices.getHumidity(),
+      future: MockESPServices().getHumidity(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.waiting:
@@ -46,6 +48,8 @@ class _HumiditySensorState extends State<HumiditySensor> {
             break;
           case ConnectionState.done:
             if(snapshot.hasData){
+              humiditySensor.currentValue = snapshot.data;
+              Widget icon = humiditySensor.evolutionIconSelector();
               return SensorDisplayer(
                 cardColor: Colors.lightBlueAccent,
                 sensorTitle:
@@ -53,8 +57,13 @@ class _HumiditySensorState extends State<HumiditySensor> {
                 sensorValue: snapshot.data.toString(),
                 sensorUnit: "%",
                 icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
-                iconEvolution: FaIcon(Icons.arrow_upward,
-                    color: Colors.green, size: iconEvolSize),
+                iconEvolution: AnimatedSwitcher(
+                  duration: Duration(seconds: 2),
+                  child: icon,
+                  transitionBuilder: (child, animation) {
+                    return ScaleTransition(child: child, scale: animation);
+                  },
+                ),
               );
             }
             if(snapshot.hasError){
@@ -71,8 +80,24 @@ class _HumiditySensorState extends State<HumiditySensor> {
             }
             break;
         }
-        return null;
+        return Container();
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _enableRefresh = false;
+    timer.cancel();
+    print(timer.isActive);
+    print("deactivated => $_enableRefresh");
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    if(_enableRefresh)
+      refresh(_enableRefresh);
+    super.initState();
   }
 }

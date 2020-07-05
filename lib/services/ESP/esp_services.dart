@@ -2,15 +2,15 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:airquality/models/esp.dart';
+import 'package:airquality/services/ESP/interface_esp_service.dart';
 import 'package:http/http.dart' as http;
 
-class ESPServices {
+class ESPServices implements ESPService{
 
-  static final String host = "http://192.168.4.1:8080";
-  static final int port = 8080;
+  static final String host = "http://192.168.1.99:8080";
 
-
-  static Future<ESP> getSettings() async {
+  @override
+  Future<ESP> getSettings() async {
 
     final response = await http.get("$host/settings");
 
@@ -25,7 +25,7 @@ class ESPServices {
     return settings;
   }
 
-  static Future<int> getDataFromESPSensors(String path) async {
+  Future<int> getDataFromESPSensors(String path) async {
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host$path");
 
@@ -37,7 +37,7 @@ class ESPServices {
     return jsonBody;
   }
 
-  static Future<int> getCO2() async {
+  Future<int> getCO2() async {
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/co2");
 
@@ -49,7 +49,7 @@ class ESPServices {
     return jsonBody;
   }
 
-  static Future<int> getTVOC() async {
+  Future<int> getTVOC() async {
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/tvoc");
 
@@ -61,7 +61,7 @@ class ESPServices {
     return jsonBody;
   }
 
-  static Future<double> getTemp() async {
+  Future<double> getTemp() async {
     final response = await http.get("$host/temp");
 
     if(response.statusCode != 200){
@@ -69,11 +69,11 @@ class ESPServices {
     }
 
     final jsonBody = json.decode(response.body);
-    //print(jsonBody);
+
     return jsonBody;
   }
 
-  static Future<int> getHumidity() async {
+  Future<int> getHumidity() async {
     final response = await http.get("$host/humidity");
 
     if(response.statusCode != 200){

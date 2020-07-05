@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/co2.dart';
 import 'package:airquality/components/sensors/humidity.dart';
@@ -9,8 +7,13 @@ import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
 
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
   dynamic settings;
 
   @override
@@ -18,7 +21,7 @@ class Dashboard extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -46,7 +49,7 @@ class Dashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder(
-                future: ESPServices.getSettings(),
+                future: ESPServices().getSettings(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
@@ -79,11 +82,13 @@ class Dashboard extends StatelessWidget {
           children: <Widget>[
             RaisedButton(
               onPressed: () {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text("Refresh"),
-                  backgroundColor: Colors.deepOrange,
-                  duration: Duration(seconds: 2),
-                ));
+                setState(() {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text("Refresh"),
+                    backgroundColor: Colors.deepOrange,
+                    duration: Duration(seconds: 2),
+                  ));
+                });
               },
               child: Icon(
                 Icons.refresh,
@@ -100,10 +105,10 @@ class Dashboard extends StatelessWidget {
                 verticalDirection: VerticalDirection.down,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  CO2Sensor(),
-                  TVOCSensor(),
                   TemperatureSensor(),
                   HumiditySensor(),
+                  CO2Sensor(),
+                  TVOCSensor(),
                 ],
               ),
             )
