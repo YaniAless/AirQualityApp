@@ -1,12 +1,11 @@
 import 'package:airquality/components/sensors/sensor_label.dart';
-import 'package:airquality/models/case.dart';
+import 'package:airquality/models/esp.dart';
 import 'package:flutter/material.dart';
 
 class Statistiques extends StatelessWidget {
-
-  final List<Case> cases = [
-    Case("Case 1", 3),
-    Case("Case 2", 4)
+  final List<ESP> cases = [
+    ESP(caseName:"ESP1", caseType: "AQ1", sensors:["Temperature","Humidity","CO2","TVOC"]),
+    ESP(caseName:"ESP2", caseType: "AQ1", sensors:["Temperature","Humidity","CO2","TVOC"])
   ];
 
   @override
@@ -19,8 +18,9 @@ class Statistiques extends StatelessWidget {
             children: <Widget>[
               Card(
                 child: ExpansionTile(
-                  title: Text(cases[casesIndex].caseName, style: TextStyle(
-                    fontSize: 24),
+                  title: Text(
+                    cases[casesIndex].caseName,
+                    style: TextStyle(fontSize: 24),
                   ),
                   subtitle: Text("Tap for more details"),
                   children: <Widget>[
@@ -30,14 +30,15 @@ class Statistiques extends StatelessWidget {
                           child: ListView.builder(
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 5, 10, 5),
                                 child: SensorLabel(
-                                    sensorTitle: cases[casesIndex].sensors[index]),
+                                    sensorTitle:
+                                        cases[casesIndex].sensors[index]),
                               );
                             },
                             shrinkWrap: true,
-                            itemCount: cases[casesIndex].sensorNumber,
-
+                            itemCount: cases[casesIndex].sensors.length,
                           ),
                         )
                       ],
@@ -53,21 +54,3 @@ class Statistiques extends StatelessWidget {
     );
   }
 }
-
-/*
-SensorDisplayer(
-                          cardColor: Colors.amber,
-                          sensorTitle: "Temperature",
-                          icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters, size: 25),
-                        ),
-                        SensorDisplayer(
-                          cardColor: Colors.amber,
-                          sensorTitle: "Temperature",
-                          icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters, size: 25),
-                        ),
-                        SensorDisplayer(
-                          cardColor: Colors.amber,
-                          sensorTitle: "Temperature",
-                          icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters, size: 25),
-                        )
- */
