@@ -9,6 +9,6 @@ class StatsWrapper extends StatelessWidget {
 
     final user = Provider.of<User>(context);
 
-    return Statistiques();
+    return Stats();
   }
 }
