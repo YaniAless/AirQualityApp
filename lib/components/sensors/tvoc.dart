@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
 import 'package:airquality/models/sensor.dart';
-import 'package:airquality/services/ESP/esp_services_mock.dart';
+import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -40,7 +40,7 @@ class _TVOCSensorState extends State<TVOCSensor> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
-      future: MockESPServices().getTVOC(),
+      future: ESPServices().getTVOC(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.waiting:

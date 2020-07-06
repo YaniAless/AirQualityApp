@@ -10,10 +10,11 @@ class ESPServices implements ESPService{
 
   Future<String> _retrieveHostAndPortInLocalPref() async{
     String ip = await Preferences().getLocalIpParam();
-    String port = await Preferences().getLocalPortParam().toString();
-
-    if(ip != "" && port != "")
-      return "$ip:$port";
+    int port = await Preferences().getLocalPortParam();
+    String portAsStr = port.toString();
+    print("$ip:$portAsStr");
+    if(ip != "" && portAsStr != "")
+      return "$ip:$portAsStr";
     else
       return "192.168.1.99:8080";
   }
@@ -22,7 +23,9 @@ class ESPServices implements ESPService{
 
   @override
   Future<ESP> getSettings() async {
+    Future.delayed(Duration(seconds: 2));
     final host = await _retrieveHostAndPortInLocalPref();
+    print("host => $host");
     final response = await http.get("$host/settings");
 
     if(response.statusCode != 200){
@@ -51,6 +54,7 @@ class ESPServices implements ESPService{
 
   Future<int> getCO2() async {
     final host = await _retrieveHostAndPortInLocalPref();
+    print("host => $host");
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/co2");
 

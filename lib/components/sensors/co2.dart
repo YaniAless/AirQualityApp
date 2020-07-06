@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
 import 'package:airquality/models/sensor.dart';
-import 'package:airquality/services/ESP/esp_services_mock.dart';
+import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -41,7 +41,7 @@ class _CO2SensorState extends State<CO2Sensor> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
-      future: MockESPServices().getCO2(),
+      future: ESPServices().getCO2(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.waiting:
@@ -77,7 +77,7 @@ class _CO2SensorState extends State<CO2Sensor> {
                 sensorUnit: "",
                 icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
                 iconEvolution: FaIcon(Icons.error,
-                    color: Colors.grey, size: iconEvolSize),
+                    color: Colors.red, size: iconEvolSize),
               );
             }
             break;

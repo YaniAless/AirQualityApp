@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
 import 'package:airquality/models/sensor.dart';
-import 'package:airquality/services/ESP/esp_services_mock.dart';
+import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -40,7 +40,7 @@ class _HumiditySensorState extends State<HumiditySensor> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
-      future: MockESPServices().getHumidity(),
+      future: ESPServices().getHumidity(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
           case ConnectionState.waiting:
@@ -75,7 +75,7 @@ class _HumiditySensorState extends State<HumiditySensor> {
                 sensorUnit: "",
                 icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
                 iconEvolution: FaIcon(Icons.error,
-                    color: Colors.green, size: iconEvolSize),
+                    color: Colors.red, size: iconEvolSize),
               );
             }
             break;

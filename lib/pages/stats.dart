@@ -1,6 +1,6 @@
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/models/esp.dart';
-import 'package:airquality/services/ESP/esp_services_mock.dart';
+import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 
 class Stats extends StatelessWidget {
@@ -31,7 +31,7 @@ class Stats extends StatelessWidget {
               ),
             ),
             FutureBuilder(
-                future: MockESPServices().getSettings(),
+                future: ESPServices().getSettings(),
                 builder: (context, snapshot) {
                   switch(snapshot.connectionState){
                     case ConnectionState.none:
@@ -44,7 +44,7 @@ class Stats extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.all(16.0),
-                            child: Text("Searching for a device..."),
+                            child: Text(AppLocalizations.of(context).translate("searching_for_device")),
                           ),
                           CircularProgressIndicator(),
                         ],
@@ -70,7 +70,7 @@ class Stats extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return ExpansionTile(
                                   title: Text(settings.sensors[index]),
-                                  subtitle: Text("Tap here for more details..."),
+                                  subtitle: Text(AppLocalizations.of(context).translate("sensor_stats_hint")),
                                   children: <Widget>[
                                     Text("TOTOTOTTOOTTO"),
                                     Text("TOTOTOTTOOTTO"),

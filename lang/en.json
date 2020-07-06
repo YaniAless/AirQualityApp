@@ -1,8 +1,8 @@
 {
   "dashboard_page_label": "Dashboard",
-  "stats_page_label": "Statistiques",
+  "stats_page_label": "Statistics",
   "account_page_label": "My Account",
-  "account_page_title": "Mon Compte",
+  "account_page_title": "My Account",
   "params_page_label": "Parameters",
   "dashboard_title": "Realtime data",
   "connected_to": "Connected to :",
@@ -28,5 +28,12 @@
   "signing_in_succeed": "Welcome ! You are now logged in !",
   "signing_in_failed": "Could not find that user, please try again.",
   "not_connected_msg": "You are currently not connected",
-  "no_sensor_value": "No data available"
+  "no_sensor_value": "No data available",
+  "sensor_stats_hint": "Tap here for more details...",
+  "searching_for_device": "Searching for a device...",
+  "esp_params_label": "ESP Parameters",
+  "local_ip_address_label": "Local IP Address",
+  "local_ip_port_label": "Local IP Port",
+  "hint_local_ip_address": "Local IP Address of your ESP",
+  "hint_local_ip_port": "Local IP Port of your ESP"
 }

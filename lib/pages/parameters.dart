@@ -37,10 +37,10 @@ class _ParametersState extends State<Parameters> {
           child: ListView(
             children: <Widget>[
               ExpansionTile(
-                title: Text("ESP parameters"),
+                title: Text(AppLocalizations.of(context).translate("esp_params_label")),
                 children: <Widget>[
                   ListTile(
-                    leading: Text("IP Address : "),
+                    leading: Text(AppLocalizations.of(context).translate("local_ip_address_label")),
                     title: FutureBuilder(
                       future: Preferences().getLocalIpParam(),
                       builder: (context, snapshot) {
@@ -48,8 +48,8 @@ class _ParametersState extends State<Parameters> {
                           case ConnectionState.done:
                             if(snapshot.hasData)
                               return TextFormField(
-                                decoration: const InputDecoration(
-                                  helperText: "Local IP Address of your ESP",
+                                decoration: InputDecoration(
+                                  helperText: AppLocalizations.of(context).translate("local_ip_address_hint"),
                                 ),
                                 initialValue: snapshot.data,
 
@@ -62,7 +62,7 @@ class _ParametersState extends State<Parameters> {
                     ),
                   ),
                   ListTile(
-                    leading: Text("IP Port : "),
+                    leading: Text(AppLocalizations.of(context).translate("local_ip_port_label")),
                     title: FutureBuilder(
                       future: Preferences().getLocalPortParam(),
                       builder: (context, snapshot) {
@@ -70,8 +70,8 @@ class _ParametersState extends State<Parameters> {
                           case ConnectionState.done:
                             if(snapshot.hasData)
                               return TextFormField(
-                                decoration: const InputDecoration(
-                                  helperText: "Local IP Port of your ESP",
+                                decoration: InputDecoration(
+                                  helperText: AppLocalizations.of(context).translate("local_ip_port_hint"),
                                 ),
                                 initialValue: snapshot.data.toString(),
                                 onChanged: (changedValue) => Preferences().updateLocalPortParam((int.parse(changedValue))),

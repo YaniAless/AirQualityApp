@@ -28,5 +28,12 @@
   "signing_in_succeed": "Bienvenue ! Vous êtes à présent connecté !",
   "signing_in_failed": "Impossible de trouver cet utilisateur, essayez encore.",
   "not_connected_msg": "Vous n'êtes pas connecté",
-  "no_sensor_value": "Aucune données disponible"
+  "no_sensor_value": "Aucune données disponible",
+  "sensor_stats_hint": "Tapez ici pour plus de détails",
+  "searching_for_device": "Recherche d'un appareil...",
+  "esp_params_label": "Paramètres de l'ESP",
+  "local_ip_address_label": "Adresse IP locale",
+  "local_ip_port_label": "Port de l'IP locale",
+  "hint_local_ip_address": "Adresse IP locale de l'ESP",
+  "hint_local_ip_port": "Port de l'IP locale de l'ESP"
 }
