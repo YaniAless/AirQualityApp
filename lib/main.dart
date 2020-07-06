@@ -24,11 +24,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: appName,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
+          primaryColor: Colors.green,
           buttonColor: Colors.lightGreen,
           textTheme: TextTheme(
             button: TextStyle(
-              backgroundColor: Colors.lightGreen,
               color: Colors.white,
               fontSize: 24,
             ),
