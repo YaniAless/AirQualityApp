@@ -16,7 +16,7 @@ class _TVOCSensorState extends State<TVOCSensor> {
 
   final double iconSize = 30;
   final double iconEvolSize = 50;
-  final int refreshDelay = 10;
+  final int refreshDelay = 15;
 
   // Sensor Data
   Sensor TVOCSensor = Sensor();

@@ -66,6 +66,7 @@ class ESPServices implements ESPService{
 
   Future<int> getTVOC() async {
     final host = await _retrieveHostAndPortInLocalPref();
+    Future.delayed(Duration(seconds: 1));
     final response = await http.get("$host/tvoc");
 
     if(response.statusCode != 200){
@@ -78,6 +79,7 @@ class ESPServices implements ESPService{
 
   Future<double> getTemp() async {
     final host = await _retrieveHostAndPortInLocalPref();
+    Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/temp");
 
     if(response.statusCode != 200){
