@@ -3,15 +3,26 @@ import 'dart:convert';
 
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/services/ESP/interface_esp_service.dart';
+import 'package:airquality/services/preferences/preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ESPServices implements ESPService{
 
-  static final String host = "http://192.168.1.99:8080";
+  Future<String> _retrieveHostAndPortInLocalPref() async{
+    String ip = await Preferences().getLocalIpParam();
+    String port = await Preferences().getLocalPortParam().toString();
+
+    if(ip != "" && port != "")
+      return "$ip:$port";
+    else
+      return "192.168.1.99:8080";
+  }
+
+
 
   @override
   Future<ESP> getSettings() async {
-
+    final host = await _retrieveHostAndPortInLocalPref();
     final response = await http.get("$host/settings");
 
     if(response.statusCode != 200){
@@ -26,6 +37,7 @@ class ESPServices implements ESPService{
   }
 
   Future<int> getDataFromAllESPSensors() async {
+    final host = await _retrieveHostAndPortInLocalPref();
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/sensors/all");
 
@@ -38,6 +50,7 @@ class ESPServices implements ESPService{
   }
 
   Future<int> getCO2() async {
+    final host = await _retrieveHostAndPortInLocalPref();
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/co2");
 
@@ -50,6 +63,7 @@ class ESPServices implements ESPService{
   }
 
   Future<int> getTVOC() async {
+    final host = await _retrieveHostAndPortInLocalPref();
     Future.delayed(Duration(seconds: 2));
     final response = await http.get("$host/tvoc");
 
@@ -62,6 +76,7 @@ class ESPServices implements ESPService{
   }
 
   Future<double> getTemp() async {
+    final host = await _retrieveHostAndPortInLocalPref();
     final response = await http.get("$host/temp");
 
     if(response.statusCode != 200){
@@ -74,6 +89,7 @@ class ESPServices implements ESPService{
   }
 
   Future<int> getHumidity() async {
+    final host = await _retrieveHostAndPortInLocalPref();
     final response = await http.get("$host/humidity");
 
     if(response.statusCode != 200){

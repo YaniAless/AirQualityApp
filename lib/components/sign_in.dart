@@ -26,8 +26,8 @@ class _SignInState extends State<SignIn> {
     Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(msg),
-          backgroundColor: Colors.deepOrange,
-          duration: Duration(seconds: 1),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 4),
         )
     );
   }

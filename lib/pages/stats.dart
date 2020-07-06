@@ -15,12 +15,16 @@ class Stats extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(5,0,5,10),
               child: Container(
-                color: Colors.amber,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.lightGreen[200],
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(AppLocalizations.of(context).translate("stats_page_label"), style: TextStyle(
-                      fontSize: 40,
+                    Text(AppLocalizations.of(context).translate("stats_page_label"),
+                    style: TextStyle(
+                      fontSize: 24,
                     )),
                   ],
                 ),
@@ -65,7 +69,6 @@ class Stats extends StatelessWidget {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return ExpansionTile(
-                                  initiallyExpanded: true,
                                   title: Text(settings.sensors[index]),
                                   subtitle: Text("Tap here for more details..."),
                                   children: <Widget>[

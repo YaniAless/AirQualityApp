@@ -1,63 +1,93 @@
+import 'package:airquality/app_localizations.dart';
+import 'package:airquality/services/preferences/preferences.dart';
 import 'package:flutter/material.dart';
 
-class Parameters extends StatelessWidget {
+class Parameters extends StatefulWidget {
+
+  @override
+  _ParametersState createState() => _ParametersState();
+}
+
+class _ParametersState extends State<Parameters> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Card(
-              child: Text("Parameters"),
-            )
-          ],
+        Flexible(
+          flex: 1,
+          child: Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.lightGreen[200],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(AppLocalizations.of(context).translate("params_page_label"),
+                    style: TextStyle(
+                      fontSize: 24,
+                    )),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: ListView(
+            children: <Widget>[
+              ExpansionTile(
+                title: Text("ESP parameters"),
+                children: <Widget>[
+                  ListTile(
+                    leading: Text("IP Address : "),
+                    title: FutureBuilder(
+                      future: Preferences().getLocalIpParam(),
+                      builder: (context, snapshot) {
+                        switch(snapshot.connectionState){
+                          case ConnectionState.done:
+                            if(snapshot.hasData)
+                              return TextFormField(
+                                decoration: const InputDecoration(
+                                  helperText: "Local IP Address of your ESP",
+                                ),
+                                initialValue: snapshot.data,
+
+                                onChanged: (changedValue) => Preferences().updateLocalIpParam((changedValue)),
+                              );
+                            break;
+                        }
+                        return Container();
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    leading: Text("IP Port : "),
+                    title: FutureBuilder(
+                      future: Preferences().getLocalPortParam(),
+                      builder: (context, snapshot) {
+                        switch(snapshot.connectionState){
+                          case ConnectionState.done:
+                            if(snapshot.hasData)
+                              return TextFormField(
+                                decoration: const InputDecoration(
+                                  helperText: "Local IP Port of your ESP",
+                                ),
+                                initialValue: snapshot.data.toString(),
+                                onChanged: (changedValue) => Preferences().updateLocalPortParam((int.parse(changedValue))),
+                              );
+                            break;
+                        }
+                        return Container();
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         )
       ],
     );
   }
 }
-
-/*
-LimitedBox(
-            child: ListView.builder(
-              padding: EdgeInsets.all(10),
-              itemBuilder: (context, casesIndex) {
-                return Column(
-                  children: <Widget>[
-                    Card(
-                      child: ExpansionTile(
-                        title: Text(
-                          cases[casesIndex].caseName,
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        subtitle: Text("Tap for more details"),
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              LimitedBox(
-                                child: ListView.builder(
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding:
-                                      const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                      child: SensorLabel(
-                                          sensorTitle:
-                                          cases[casesIndex].sensors[index]),
-                                    );
-                                  },
-                                  shrinkWrap: true,
-                                  itemCount: cases[casesIndex].sensors.length,
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-              itemCount: cases.length,
-            ),
-          )
- */
