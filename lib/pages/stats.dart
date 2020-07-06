@@ -12,22 +12,19 @@ class Stats extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5,0,5,10),
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.lightGreen[200],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(AppLocalizations.of(context).translate("stats_page_label"),
-                    style: TextStyle(
-                      fontSize: 24,
-                    )),
-                  ],
-                ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.lightGreen[200],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(AppLocalizations.of(context).translate("stats_page_label"),
+                      style: TextStyle(
+                        fontSize: 24,
+                      )),
+                ],
               ),
             ),
             FutureBuilder(

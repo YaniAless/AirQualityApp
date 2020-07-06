@@ -52,7 +52,6 @@ class _ParametersState extends State<Parameters> {
                                   helperText: AppLocalizations.of(context).translate("local_ip_address_hint"),
                                 ),
                                 initialValue: snapshot.data,
-
                                 onChanged: (changedValue) => Preferences().updateLocalIpParam((changedValue)),
                               );
                             break;
@@ -70,6 +69,7 @@ class _ParametersState extends State<Parameters> {
                           case ConnectionState.done:
                             if(snapshot.hasData)
                               return TextFormField(
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   helperText: AppLocalizations.of(context).translate("local_ip_port_hint"),
                                 ),
