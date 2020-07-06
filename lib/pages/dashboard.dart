@@ -20,21 +20,20 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Text(
-                  AppLocalizations.of(context).translate("dashboard_title"),
+        Container(
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.lightGreen[200],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(AppLocalizations.of(context).translate("dashboard_title"),
                   style: TextStyle(
-                    fontSize: 26,
-                  ),
-                ),
-              ),
-            ),
-          ],
+                    fontSize: 24,
+                  )),
+            ],
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,

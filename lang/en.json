@@ -35,5 +35,7 @@
   "local_ip_address_label": "Local IP Address",
   "local_ip_port_label": "Local IP Port",
   "hint_local_ip_address": "Local IP Address of your ESP",
-  "hint_local_ip_port": "Local IP Port of your ESP"
+  "hint_local_ip_port": "Local IP Port of your ESP",
+  "about_us": "More infos...",
+  "credits": "This mobile app was created by\n"
 }

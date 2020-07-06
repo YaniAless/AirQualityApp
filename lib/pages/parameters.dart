@@ -1,4 +1,5 @@
 import 'package:airquality/app_localizations.dart';
+import 'package:airquality/main.dart';
 import 'package:airquality/services/preferences/preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -84,6 +85,27 @@ class _ParametersState extends State<Parameters> {
                     ),
                   ),
                 ],
+              ),
+              ListTile(
+                title: Text(AppLocalizations.of(context).translate("about_us")),
+                onTap: () => showAboutDialog(
+                    context: context,
+                  applicationName: MyApp.appName,
+                  applicationVersion: MyApp.appVersion,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          TextSpan(text: AppLocalizations.of(context).translate("credits")),
+                          TextSpan(text: "Alessandro ALTERNO\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
+                          TextSpan(text: "Lukas Brasseleur\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
+                          TextSpan(text: "Yani Foughali\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
+                        ]
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),

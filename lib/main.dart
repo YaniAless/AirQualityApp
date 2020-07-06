@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
   static const String appName = "Air Quality";
+  static const String appVersion = "0.1.0";
 
   @override
   Widget build(BuildContext context) {
