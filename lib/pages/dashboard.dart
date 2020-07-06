@@ -68,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
                       break;
                     default:
                       return Container(
-                        child: Text(AppLocalizations.of(context).translate("empty_device"))
+                          child: Text(AppLocalizations.of(context).translate("empty_device"))
                       );
                       break;
                   }

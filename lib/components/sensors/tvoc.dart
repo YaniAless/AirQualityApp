@@ -90,8 +90,6 @@ class _TVOCSensorState extends State<TVOCSensor> {
   void dispose() {
     _enableRefresh = false;
     timer.cancel();
-    print(timer.isActive);
-    print("deactivated => $_enableRefresh");
     super.dispose();
   }
 

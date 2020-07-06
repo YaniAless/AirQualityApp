@@ -91,8 +91,6 @@ class _CO2SensorState extends State<CO2Sensor> {
   void dispose() {
     _enableRefresh = false;
     timer.cancel();
-    print(timer.isActive);
-    print("deactivated => $_enableRefresh");
     super.dispose();
   }
 

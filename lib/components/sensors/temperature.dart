@@ -94,8 +94,6 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
   void dispose() {
     _enableRefresh = false;
     timer.cancel();
-    print(timer.isActive);
-    print("deactivated => $_enableRefresh");
     super.dispose();
   }
 

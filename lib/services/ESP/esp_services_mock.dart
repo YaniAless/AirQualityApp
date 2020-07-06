@@ -36,8 +36,8 @@ class MockESPServices implements ESPService{
   }
 
   @override
-  Future<ESP> getSettings() {
-    // TODO: implement getSettings
-    throw UnimplementedError();
+  Future<ESP> getSettings() async {
+    ESP fakeESP = new ESP(caseName:"ESP1", caseType: "AQ1", sensors:["Temperature","Humidity","CO2","TVOC"]);
+    return fakeESP;
   }
 }
