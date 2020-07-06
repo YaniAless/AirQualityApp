@@ -16,7 +16,7 @@ class _CO2SensorState extends State<CO2Sensor> {
 
   final double iconSize = 30;
   final double iconEvolSize = 50;
-  final int refreshDelay = 5;
+  final int refreshDelay = 10;
 
   // Sensor Data
   Sensor co2Sensor = Sensor();
