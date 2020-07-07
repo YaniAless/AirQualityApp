@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 
 void main(){
-  SyncfusionLicense.registerLicense("NT8mJyc2IWhia31ifWN9ZmFoa3xmfGFjYWNzZGlmamlnYXMDHmg2PTAmPzYhY2MTOzwnPjI6P301IQ==");
+  SyncfusionLicense.registerLicense("NT8mJyc2IWhia31hfWN9Z2doa3xmfGFjYWNzZGlmamlnYXMDHmg2PTAmPzYhY2MTOzwnPjI6P301IQ==");
   runApp(MyApp());
 }
 
