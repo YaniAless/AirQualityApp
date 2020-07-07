@@ -19,7 +19,7 @@ class Preferences {
     final prefs = await SharedPreferences.getInstance();
     final localIp = prefs.getInt("ESP_LOCAL_PORT");
     if(localIp == null)
-      return 0;
+      return 8080;
     return localIp;
   }
 

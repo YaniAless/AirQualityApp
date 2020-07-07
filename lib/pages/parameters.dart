@@ -92,6 +92,7 @@ class _ParametersState extends State<Parameters> {
                     context: context,
                   applicationName: MyApp.appName,
                   applicationVersion: MyApp.appVersion,
+                  applicationIcon: Image(image: AssetImage('assets/AQ_logo_small.png'), height: 64, width: 64),
                   children: [
                     RichText(
                       text: TextSpan(
@@ -99,11 +100,11 @@ class _ParametersState extends State<Parameters> {
                         children: <TextSpan>[
                           TextSpan(text: AppLocalizations.of(context).translate("credits")),
                           TextSpan(text: "Alessandro ALTERNO\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
-                          TextSpan(text: "Lukas Brasseleur\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
-                          TextSpan(text: "Yani Foughali\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
+                          TextSpan(text: "Lukas BRASSELEUR\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
+                          TextSpan(text: "Yani FOUGHALI\n", style: TextStyle(fontSize: 15, color: Colors.green, fontWeight: FontWeight.bold)),
                         ]
                       ),
-                    )
+                    ),
                   ],
                 ),
               )
