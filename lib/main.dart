@@ -8,8 +8,12 @@ import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_core/core.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  SyncfusionLicense.registerLicense("NT8mJyc2IWhia31ifWN9ZmFoa3xmfGFjYWNzZGlmamlnYXMDHmg2PTAmPzYhY2MTOzwnPjI6P301IQ==");
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

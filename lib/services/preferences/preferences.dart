@@ -6,7 +6,7 @@ class Preferences {
     final prefs = await SharedPreferences.getInstance();
     final localIp = prefs.getString("ESP_LOCAL_IP");
     if(localIp == null)
-      return "No local IP found";
+      return "192.168.1.99";
     return localIp;
   }
 
