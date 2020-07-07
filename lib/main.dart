@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Air Quality"),
+          title: Text(MyApp.appName),
           backgroundColor: Colors.lightGreen,
         ),
         body: widget.pages[
