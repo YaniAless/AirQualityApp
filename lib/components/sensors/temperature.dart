@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
+import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/sensor.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TemperatureSensor extends StatefulWidget {
+  final ESP esp;
+  TemperatureSensor({this.esp});
   @override
   _TemperatureSensorState createState() => _TemperatureSensorState();
 }
@@ -52,6 +55,8 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
               double value = snapshot.data;
               tempSensor.currentValue = value.toInt();
               Widget icon = tempSensor.evolutionIconSelector();
+              if(widget.esp != null)
+                widget.esp.setSensorsValue("Temperature", value);
               return SensorDisplayer(
                 cardColor: Colors.amber,
                 sensorTitle: AppLocalizations.of(context)

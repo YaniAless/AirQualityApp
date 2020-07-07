@@ -95,7 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,

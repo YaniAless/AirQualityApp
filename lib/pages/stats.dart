@@ -70,7 +70,7 @@ class Stats extends StatelessWidget {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return ExpansionTile(
-                                title: Text(settings.sensors[index]),
+                                title: Text(settings.sensors.keys.elementAt(index)),
                                 subtitle: Text(AppLocalizations.of(context)
                                     .translate("sensor_stats_hint")),
                                 children: <Widget>[
@@ -91,7 +91,23 @@ class Stats extends StatelessWidget {
                                           sensor.sensorValue,
                                           // Enable data label
                                           dataLabelSettings: DataLabelSettings(
-                                              isVisible: true))
+                                              isVisible: true)),
+                                      LineSeries<SensorData, String>(
+                                          dataSource: <SensorData>[
+                                            SensorData('Mon', 1000),
+                                            SensorData('Tue', 1000),
+                                            SensorData('Wed', 1000),
+                                            SensorData('Thu', 1000),
+                                            SensorData('Fri', 1000)
+                                          ],
+                                          xValueMapper: (SensorData sensor, _) =>
+                                          sensor.day,
+                                          yValueMapper: (SensorData sensor, _) =>
+                                          sensor.sensorValue,
+                                          // Enable data label
+                                          dataLabelSettings: DataLabelSettings(
+                                              isVisible: true),
+                                      ),
                                     ],
                                   ),
                                 ],

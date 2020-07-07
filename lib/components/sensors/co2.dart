@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CO2Sensor extends StatefulWidget {
+  final esp;
+  CO2Sensor({this.esp});
+
   @override
   _CO2SensorState createState() => _CO2SensorState();
 }
@@ -51,6 +54,8 @@ class _CO2SensorState extends State<CO2Sensor> {
             if(snapshot.hasData){
               co2Sensor.currentValue = snapshot.data;
               Widget icon = co2Sensor.evolutionIconSelector();
+              if(widget.esp != null)
+                widget.esp.setSensorsValue("CO2", co2Sensor.currentValue);
               return SensorDisplayer(
                 cardColor: Colors.grey,
                 sensorTitle:

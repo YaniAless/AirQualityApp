@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HumiditySensor extends StatefulWidget {
+  final esp;
+  HumiditySensor({this.esp});
+
   @override
   _HumiditySensorState createState() => _HumiditySensorState();
 }
@@ -50,6 +53,8 @@ class _HumiditySensorState extends State<HumiditySensor> {
             if(snapshot.hasData){
               humiditySensor.currentValue = snapshot.data;
               Widget icon = humiditySensor.evolutionIconSelector();
+              if(widget.esp != null)
+                widget.esp.setSensorsValue("Humidity", humiditySensor.currentValue);
               return SensorDisplayer(
                 cardColor: Colors.lightBlueAccent,
                 sensorTitle:

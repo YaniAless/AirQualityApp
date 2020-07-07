@@ -20,8 +20,6 @@ class ESPServices implements ESPService{
       return "http://192.168.1.99:8080";
   }
 
-
-
   @override
   Future<ESP> getSettings() async {
     final host = await _retrieveHostAndPortInLocalPref();
@@ -34,22 +32,11 @@ class ESPServices implements ESPService{
 
     final jsonBody = json.decode(response.body);
     List<String> sensorsList = (jsonBody["sensors"]).cast<String>();
-    final ESP settings = ESP(caseName: jsonBody["caseName"], caseType: jsonBody["caseType"], sensors: sensorsList);
+    Map<String, dynamic> sensorsMap = Map.fromIterable(sensorsList, key: (sensorName) => sensorName, value: (sensorName) => 0);
+
+    final ESP settings = ESP(caseName: jsonBody["caseName"], caseType: jsonBody["caseType"], sensors: sensorsMap);
 
     return settings;
-  }
-
-  Future<int> getDataFromAllESPSensors() async {
-    final host = await _retrieveHostAndPortInLocalPref();
-    Future.delayed(Duration(seconds: 2));
-    final response = await http.get("$host/sensors/all");
-
-    if(response.statusCode != 200){
-      throw Error();
-    }
-
-    final jsonBody = json.decode(response.body);
-    return jsonBody;
   }
 
   Future<int> getCO2() async {

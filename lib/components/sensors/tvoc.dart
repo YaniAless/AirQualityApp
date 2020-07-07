@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TVOCSensor extends StatefulWidget {
+  final esp;
+  TVOCSensor({this.esp});
+
   @override
   _TVOCSensorState createState() => _TVOCSensorState();
 }
@@ -50,6 +53,8 @@ class _TVOCSensorState extends State<TVOCSensor> {
             if(snapshot.hasData){
               TVOCSensor.currentValue = snapshot.data;
               Widget icon = TVOCSensor.evolutionIconSelector();
+              if(widget.esp != null)
+                widget.esp.setSensorsValue("TVOC", TVOCSensor.currentValue);
               return SensorDisplayer(
                 cardColor: Colors.grey,
                 sensorTitle:

@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/co2.dart';
 import 'package:airquality/components/sensors/humidity.dart';
 import 'package:airquality/components/sensors/temperature.dart';
 import 'package:airquality/components/sensors/tvoc.dart';
+import 'package:airquality/models/esp.dart';
+import 'package:airquality/models/user.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
+import 'package:airquality/services/firebase/sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatefulWidget {
 
@@ -14,10 +20,20 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  dynamic settings;
+  ESP esp;
+  Timer timer;
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
+
     return Column(
       children: <Widget>[
         Container(
@@ -42,7 +58,11 @@ class _DashboardState extends State<Dashboard> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 child: Text(
-                    AppLocalizations.of(context).translate("connected_to")),
+                    AppLocalizations.of(context).translate("connected_to"),
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -61,9 +81,9 @@ class _DashboardState extends State<Dashboard> {
                         );
                       }
                       if (snapshot.hasData) {
-                        settings = snapshot.data;
+                        esp = snapshot.data;
                       }
-                      return Text(settings.caseName);
+                      return Text(esp.caseName);
                       break;
                     default:
                       return Container(
@@ -81,6 +101,11 @@ class _DashboardState extends State<Dashboard> {
           children: <Widget>[
             RaisedButton(
               onPressed: () {
+                if(esp != null && esp.sensors["Humidity"] != 0){
+                  print("SENDER");
+                  SenderService().sendData(user.email, esp.sensors["Temperature"], esp.sensors["Humidity"], esp.sensors["CO2"], esp.sensors["TVOC"]);
+                }
+                /*
                 setState(() {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text("Refresh"),
@@ -88,6 +113,7 @@ class _DashboardState extends State<Dashboard> {
                     duration: Duration(seconds: 2),
                   ));
                 });
+                */
               },
               child: Icon(
                 Icons.refresh,
@@ -104,10 +130,10 @@ class _DashboardState extends State<Dashboard> {
                 verticalDirection: VerticalDirection.down,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  TemperatureSensor(),
-                  HumiditySensor(),
-                  CO2Sensor(),
-                  TVOCSensor(),
+                  TemperatureSensor(esp: esp),
+                  HumiditySensor(esp: esp),
+                  CO2Sensor(esp: esp),
+                  TVOCSensor(esp: esp),
                 ],
               ),
             )
