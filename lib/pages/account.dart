@@ -1,5 +1,5 @@
 import 'package:airquality/app_localizations.dart';
-import 'package:airquality/models/user.dart';
+import 'package:airquality/components/page_header.dart';
 import 'package:airquality/services/firebase/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +8,7 @@ class Account extends StatelessWidget {
 
   Account({ this.user });
 
-  final User user;
+  final user;
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,7 @@ class Account extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(AppLocalizations.of(context).translate("account_page_title"),
-          style: TextStyle(
-            fontSize: 25,
-          ),
-          ),
-        ),
+        PageHeader(translationLabel: "account_page_title"),
         Expanded(
           child: ListView(
             children: <Widget>[
@@ -42,10 +35,14 @@ class Account extends StatelessWidget {
             ],
           ),
         ),
-        user != null ? FlatButton(
-          onPressed: () => AuthService().signOut(),
-          child: Text(AppLocalizations.of(context).translate("sign_out_button")),
-        ) : null,
+        SizedBox(
+          width: double.infinity,
+          child: FlatButton(
+            color: Theme.of(context).buttonColor,
+            onPressed: () => AuthService().signOut(),
+            child: Text(AppLocalizations.of(context).translate("sign_out_button")),
+          ),
+        ),
       ],
     );
   }

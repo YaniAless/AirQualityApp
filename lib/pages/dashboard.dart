@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:airquality/app_localizations.dart';
+import 'package:airquality/components/page_header.dart';
 import 'package:airquality/components/sensors/co2.dart';
 import 'package:airquality/components/sensors/humidity.dart';
 import 'package:airquality/components/sensors/temperature.dart';
@@ -62,21 +63,7 @@ class _DashboardState extends State<Dashboard> {
     ESP esp = Provider.of<ESP>(context, listen: false);
     return Column(
       children: <Widget>[
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.lightGreen[200],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(AppLocalizations.of(context).translate("dashboard_title"),
-                  style: TextStyle(
-                    fontSize: 24,
-                  )),
-            ],
-          ),
-        ),
+        PageHeader(translationLabel: "dashboard_title"),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

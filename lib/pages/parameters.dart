@@ -1,4 +1,5 @@
 import 'package:airquality/app_localizations.dart';
+import 'package:airquality/components/page_header.dart';
 import 'package:airquality/main.dart';
 import 'package:airquality/services/preferences/preferences.dart';
 import 'package:flutter/material.dart';
@@ -17,21 +18,7 @@ class _ParametersState extends State<Parameters> {
       children: <Widget>[
         Flexible(
           flex: 1,
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.lightGreen[200],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(AppLocalizations.of(context).translate("params_page_label"),
-                    style: TextStyle(
-                      fontSize: 24,
-                    )),
-              ],
-            ),
-          ),
+          child: PageHeader(translationLabel: "params_page_label"),
         ),
         Expanded(
           flex: 2,

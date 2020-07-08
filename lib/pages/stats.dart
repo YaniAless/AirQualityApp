@@ -1,4 +1,5 @@
 import 'package:airquality/app_localizations.dart';
+import 'package:airquality/components/page_header.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
@@ -13,23 +14,7 @@ class Stats extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.lightGreen[200],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                      AppLocalizations.of(context)
-                          .translate("stats_page_label"),
-                      style: TextStyle(
-                        fontSize: 24,
-                      )),
-                ],
-              ),
-            ),
+            PageHeader(translationLabel: "stats_page_label"),
             FutureBuilder(
               future: ESPServices().getSettings(),
               builder: (context, snapshot) {

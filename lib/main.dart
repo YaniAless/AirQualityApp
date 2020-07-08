@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
           primaryColor: Colors.green,
-          buttonColor: Colors.lightGreen,
+          buttonColor: Colors.lightGreen[300],
           textTheme: TextTheme(
             button: TextStyle(
               color: Colors.white,
