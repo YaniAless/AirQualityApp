@@ -41,6 +41,7 @@ class ESPServices implements ESPService{
 
   Future<int> getCO2() async {
     final host = await _retrieveHostAndPortInLocalPref();
+    Future.delayed(Duration(seconds: 1));
     final response = await http.get("$host/co2");
 
     if(response.statusCode != 200){
