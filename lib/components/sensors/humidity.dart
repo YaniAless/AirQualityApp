@@ -68,7 +68,7 @@ class _HumiditySensorState extends State<HumiditySensor> {
           );
         } else {
           humiditySensor.currentValue = esp.sensors["Humidity"];
-          Widget icon = humiditySensor.evolutionIconSelector();
+          //Widget icon = humiditySensor.evolutionIconSelector();
           return SensorDisplayer(
             cardColor: Colors.lightBlueAccent,
             sensorTitle:

@@ -63,7 +63,7 @@ class _TVOCSensorState extends State<TVOCSensor> {
           );
         } else {
           tvocSensor.currentValue = esp.sensors["TVOC"];
-          Widget icon = tvocSensor.evolutionIconSelector();
+          //Widget icon = tvocSensor.evolutionIconSelector();
           return SensorDisplayer(
             cardColor: Colors.grey,
             sensorTitle: AppLocalizations.of(context).translate("tvoc_title"),

@@ -64,8 +64,7 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
         } else {
           double temp = esp.sensors["Temperature"];
           tempSensor.currentValue = temp.round();
-          Widget icon = tempSensor.evolutionIconSelector();
-
+          //Widget icon = tempSensor.evolutionIconSelector();
           return SensorDisplayer(
             cardColor: Colors.amber,
             sensorTitle:
