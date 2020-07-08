@@ -36,4 +36,13 @@ class ESP with ChangeNotifier, ESPServices{
   Map<String, dynamic> get sensorData{
     return sensors;
   }
+
+  bool isSensorsDataAvailable(){
+    bool isAvailable = false;
+    sensors.forEach((key, value) {
+      if(value != null)
+        isAvailable = true;
+    });
+    return isAvailable;
+  }
 }

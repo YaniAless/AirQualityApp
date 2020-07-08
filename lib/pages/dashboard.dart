@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/co2.dart';
 import 'package:airquality/components/sensors/humidity.dart';
 import 'package:airquality/components/sensors/temperature.dart';
 import 'package:airquality/components/sensors/tvoc.dart';
 import 'package:airquality/models/esp.dart';
+import 'package:airquality/models/user.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
+import 'package:airquality/services/firebase/sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +20,21 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  Timer timer;
+  _sendSensorsData(){
+    timer = Timer.periodic(Duration(minutes: 1), (timer) {
+      final user = Provider.of<User>(context, listen: false);
+      ESP esp = Provider.of<ESP>(context, listen: false);
 
+      if(user != null && esp.isSensorsDataAvailable()){
+        SenderService().synchroData(user.uid, esp);
+      }
+    });
+  }
   @override
   void initState() {
+
+    _sendSensorsData();
     super.initState();
   }
 
