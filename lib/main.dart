@@ -37,6 +37,9 @@ class MyApp extends StatelessWidget {
               color: Colors.white,
               fontSize: 24,
             ),
+            headline1: TextStyle(
+              fontSize: 50,
+            ),
           ),
         ),
         // List all of the app's supported locales here
