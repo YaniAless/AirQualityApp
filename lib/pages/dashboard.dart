@@ -22,20 +22,39 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   Timer timer;
   _sendSensorsData(){
-    timer = Timer.periodic(Duration(minutes: 1), (timer) {
-      final user = Provider.of<User>(context, listen: false);
-      ESP esp = Provider.of<ESP>(context, listen: false);
+    timer = Timer.periodic(Duration(seconds:35,minutes: 0), (timer) {
+      try{
+        final user = Provider.of<User>(context, listen: false);
+        ESP esp = Provider.of<ESP>(context, listen: false);
 
-      if(user != null && esp.isSensorsDataAvailable()){
-        SenderService().synchroData(user.uid, esp);
+        if(user != null && esp.isSensorsDataAvailable()) {
+          SenderService().synchroData(user.uid, esp);
+        }
+        if(user == null){
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              duration: Duration(seconds: 15),
+              content: Text(AppLocalizations.of(context).translate("not_connected_msg")),
+              backgroundColor: Colors.deepOrangeAccent,
+            )
+          );
+        }
+      } catch(err){
+        print("Could not send data");
       }
     });
   }
   @override
   void initState() {
-
     _sendSensorsData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if(timer.isActive)
+      timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -87,13 +106,18 @@ class _DashboardState extends State<Dashboard> {
                       return CircularProgressIndicator();
                       break;
                     case ConnectionState.done:
-                      if (snapshot.hasError){
+                      if(snapshot.hasData){
+                        esp = snapshot.data;
+                        return Text(esp.caseName);
+                      }
+                      if (snapshot.hasError || esp == null){
                         return Container(
                             child: Text(AppLocalizations.of(context).translate("empty_device"))
                         );
                       }
-                      esp = snapshot.data;
-                      return Text(esp.caseName);
+                      return Container(
+                          child: Text(AppLocalizations.of(context).translate("empty_device"))
+                      );
                       break;
                     default:
                       return Container(

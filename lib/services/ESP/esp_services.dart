@@ -26,67 +26,87 @@ class ESPServices implements ESPService{
 
   @override
   Future<ESP> getSettings() async {
-    final host = await _retrieveHostAndPortInLocalPref();
-    final response = await http.get("$host/settings").timeout(Duration(seconds: 5));
-    if(response.statusCode != 200){
-      throw Error();
+    try {
+      final host = await _retrieveHostAndPortInLocalPref();
+      final response = await http.get("$host/settings").timeout(Duration(seconds: 5));
+      if(response.statusCode != 200){
+        throw Error();
+      }
+
+      final jsonBody = json.decode(response.body);
+      List<String> sensorsList = (jsonBody["sensors"]).cast<String>();
+      Map<String, dynamic> sensorsMap = Map.fromIterable(sensorsList, key: (sensorName) => sensorName, value: (sensorName) => 0);
+
+      ESP esp = ESP();
+      esp.setESP(jsonBody["caseName"],jsonBody["caseType"],sensorsMap);
+      return esp;
+    } catch(err){
+      print("Error while getting settings ");
     }
-
-    final jsonBody = json.decode(response.body);
-    List<String> sensorsList = (jsonBody["sensors"]).cast<String>();
-    Map<String, dynamic> sensorsMap = Map.fromIterable(sensorsList, key: (sensorName) => sensorName, value: (sensorName) => 0);
-
-    ESP esp = ESP();
-    esp.setESP(jsonBody["caseName"],jsonBody["caseType"],sensorsMap);
-    return esp;
   }
 
   Future<int> getCO2() async {
-    final host = await _retrieveHostAndPortInLocalPref();
+    try {
+      final host = await _retrieveHostAndPortInLocalPref();
 
-    final response = await http.get("$host/co2");
-    if(response.statusCode != 200){
-      throw Error();
+      final response = await http.get("$host/co2");
+      if(response.statusCode != 200){
+        throw Error();
+      }
+
+      final jsonBody = json.decode(response.body);
+      return jsonBody;
+    } on Exception catch (e) {
+      print("Error while getting CO2");
     }
-
-    final jsonBody = json.decode(response.body);
-    return jsonBody;
   }
 
   Future<int> getTVOC() async {
-    final host = await _retrieveHostAndPortInLocalPref();
+    try {
+      final host = await _retrieveHostAndPortInLocalPref();
 
-    final response = await http.get("$host/tvoc");
-    if(response.statusCode != 200){
-      throw Error();
+      final response = await http.get("$host/tvoc");
+      if(response.statusCode != 200){
+        throw Error();
+      }
+
+      final jsonBody = json.decode(response.body);
+      return jsonBody;
+    } on Exception catch (e) {
+      print("Error while getting TVOC");
     }
-
-    final jsonBody = json.decode(response.body);
-    return jsonBody;
   }
 
   Future<double> getTemp() async {
-    final host = await _retrieveHostAndPortInLocalPref();
-    final response = await http.get("$host/temp");
+    try {
+      final host = await _retrieveHostAndPortInLocalPref();
+      final response = await http.get("$host/temp");
 
-    if(response.statusCode != 200){
-      throw Error();
+      if(response.statusCode != 200){
+        throw Error();
+      }
+
+      final jsonBody = json.decode(response.body);
+      print(jsonBody);
+      return jsonBody;
+    } on Exception catch (e) {
+      print("Error while getting Temperature");
     }
-
-    final jsonBody = json.decode(response.body);
-
-    return jsonBody;
   }
 
   Future<int> getHumidity() async {
-    final host = await _retrieveHostAndPortInLocalPref();
-    final response = await http.get("$host/humidity");
+    try {
+      final host = await _retrieveHostAndPortInLocalPref();
+      final response = await http.get("$host/humidity");
 
-    if(response.statusCode != 200){
-      throw Error();
+      if(response.statusCode != 200){
+        throw Error();
+      }
+
+      final jsonBody = json.decode(response.body);
+      return jsonBody;
+    } on Exception catch (e) {
+      print("Error while getting Humidity");
     }
-
-    final jsonBody = json.decode(response.body);
-    return jsonBody;
   }
 }
