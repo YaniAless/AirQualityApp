@@ -1,4 +1,5 @@
 import 'package:airquality/app_localizations.dart';
+import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/user.dart';
 import 'package:airquality/pages/dashboard.dart';
 import 'package:airquality/pages/parameters.dart';
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
           // from the list (English, in this case).
           return supportedLocales.first;
         },
-        home: MyHomePage(title: appName),
+        home: MyHomePage(),
       ),
     );
   }
@@ -75,22 +76,19 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-  final List<Widget> pages = [
-    Dashboard(),
-    StatsWrapper(),
-    AccountWrapper(),
-    Parameters()
-  ];
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
+
+  final List<Widget> pages = [
+    Dashboard(),
+    StatsWrapper(),
+    AccountWrapper(),
+    Parameters()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +133,10 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(MyApp.appName),
           backgroundColor: Colors.lightGreen,
         ),
-        body: widget.pages[
-            _currentIndex], // This trailing comma makes auto-formatting nicer for build methods.
+        body: ChangeNotifierProvider(
+            child: pages[_currentIndex],
+          create: (context) => ESP(),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

@@ -23,7 +23,6 @@ class ESPServices implements ESPService{
   @override
   Future<ESP> getSettings() async {
     final host = await _retrieveHostAndPortInLocalPref();
-
     final response = await http.get("$host/settings");
 
     if(response.statusCode != 200){
@@ -34,9 +33,10 @@ class ESPServices implements ESPService{
     List<String> sensorsList = (jsonBody["sensors"]).cast<String>();
     Map<String, dynamic> sensorsMap = Map.fromIterable(sensorsList, key: (sensorName) => sensorName, value: (sensorName) => 0);
 
-    final ESP settings = ESP(caseName: jsonBody["caseName"], caseType: jsonBody["caseType"], sensors: sensorsMap);
-
-    return settings;
+    ESP esp = ESP();
+    esp.setESP(jsonBody["caseName"],jsonBody["caseType"],sensorsMap);
+    Future.delayed(Duration(seconds: 3));
+    return esp;
   }
 
   Future<int> getCO2() async {

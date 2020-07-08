@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
+import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/sensor.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class HumiditySensor extends StatefulWidget {
   final esp;
@@ -42,6 +44,8 @@ class _HumiditySensorState extends State<HumiditySensor> {
 
   @override
   Widget build(BuildContext context) {
+    var esp = Provider.of<ESP>(context);
+
     return FutureBuilder<int>(
       future: ESPServices().getHumidity(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -53,8 +57,7 @@ class _HumiditySensorState extends State<HumiditySensor> {
             if(snapshot.hasData){
               humiditySensor.currentValue = snapshot.data;
               Widget icon = humiditySensor.evolutionIconSelector();
-              if(widget.esp != null)
-                widget.esp.setSensorsValue("Humidity", humiditySensor.currentValue);
+
               return SensorDisplayer(
                 cardColor: Colors.lightBlueAccent,
                 sensorTitle:

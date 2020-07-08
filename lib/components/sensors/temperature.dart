@@ -7,10 +7,10 @@ import 'package:airquality/models/sensor.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class TemperatureSensor extends StatefulWidget {
-  final ESP esp;
-  TemperatureSensor({this.esp});
+
   @override
   _TemperatureSensorState createState() => _TemperatureSensorState();
 }
@@ -43,6 +43,7 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
 
   @override
   Widget build(BuildContext context) {
+    var esp = Provider.of<ESP>(context);
     return FutureBuilder<double>(
       future: ESPServices().getTemp(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -55,8 +56,8 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
               double value = snapshot.data;
               tempSensor.currentValue = value.toInt();
               Widget icon = tempSensor.evolutionIconSelector();
-              if(widget.esp != null)
-                widget.esp.setSensorsValue("Temperature", value);
+              esp.setSensorsValue("Temperature", value);
+              print("Temp => ${esp.sensors}");
               return SensorDisplayer(
                 cardColor: Colors.amber,
                 sensorTitle: AppLocalizations.of(context)
@@ -98,14 +99,13 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
   @override
   void dispose() {
     _enableRefresh = false;
-    timer.cancel();
+    //timer.cancel();
     super.dispose();
   }
 
   @override
   void initState() {
-    if(_enableRefresh)
-      refresh(_enableRefresh);
+    //refresh(_enableRefresh);
     super.initState();
   }
 }
