@@ -43,6 +43,7 @@ class _SignInState extends State<SignIn> {
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("email_placeholder")),
+                  keyboardType: TextInputType.emailAddress,
                   textCapitalization: TextCapitalization.none,
                   validator: (email) {
                     if(email.isEmpty || !_isEmailValidated(email))

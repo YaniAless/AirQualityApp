@@ -33,7 +33,7 @@ class Account extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.date_range),
-                title: Text(DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now()).toString()), // TODO Changer la date, c'est un exemple
+                title: Text(DateFormat('yyyy-MM-dd HH:mm').format(user.creationDate.toLocal()).toString()),
               ),
               ListTile(
                 leading: Icon(Icons.person),

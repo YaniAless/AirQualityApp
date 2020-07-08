@@ -41,6 +41,7 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(hintText: AppLocalizations.of(context).translate("email_placeholder")),
+                  keyboardType: TextInputType.emailAddress,
                   textCapitalization: TextCapitalization.none,
                   validator: (email) {
                     if(email.isEmpty || !_isEmailValidated(email))

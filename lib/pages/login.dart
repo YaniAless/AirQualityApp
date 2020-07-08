@@ -15,6 +15,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
           child: Row(
@@ -51,11 +52,14 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(35),
-                child: Text(AppLocalizations.of(context).translate("not_connected_msg"), style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.pink,
-                ),
+                padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
+
+                child: Center(
+                  child: Text(AppLocalizations.of(context).translate("not_connected_msg"), style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.red,
+                  ),
+                  ),
                 ),
               ),
             )

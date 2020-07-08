@@ -6,7 +6,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User _userFromFireBaseUser(FirebaseUser user){
-    return user != null ? User(uid: user.uid, email: user.email) : null;
+    return user != null ? User(uid: user.uid, email: user.email, creationDate: user.metadata.creationTime) : null;
   }
 
   //
@@ -18,7 +18,7 @@ class AuthService {
   Future signInWithEmailAndPwd(String email, String pwd) async{
     try{
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: pwd);
-      print(result.user);
+      print(result.user.metadata.creationTime);
       FirebaseUser user = result.user;
 
       return _userFromFireBaseUser(user);
