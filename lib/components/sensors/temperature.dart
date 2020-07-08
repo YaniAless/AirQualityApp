@@ -10,13 +10,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class TemperatureSensor extends StatefulWidget {
-
   @override
   _TemperatureSensorState createState() => _TemperatureSensorState();
 }
 
 class _TemperatureSensorState extends State<TemperatureSensor> {
-
   final double iconSize = 30;
   final double iconEvolSize = 50;
   final int refreshDelay = 30;
@@ -26,25 +24,72 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
 
   // Refreshing
   Timer timer;
-  bool _firstLoad = true;
-  bool _enableRefresh = true;
 
-  refresh(bool enableRefresh){
-    timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) {
-      if(_enableRefresh){
-        setState(() {
-          _firstLoad = false;
-          tempSensor.oldValue = tempSensor.currentValue;
-        });
-      }
+  _fetchTemp() {
+    timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) async {
+      double temp = await ESPServices().getTemp();
+      ESP esp = Provider.of(context, listen: false);
+      esp.setSensorsValue("Temperature", temp);
     });
   }
 
+  @override
+  void dispose() {
+    if (timer.isActive) timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _fetchTemp();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var esp = Provider.of<ESP>(context);
-    return FutureBuilder<double>(
+    return Consumer<ESP>(
+      builder: (context, esp, child) {
+        if (esp.sensors["Temperature"] == null) {
+          return SensorDisplayer(
+            cardColor: Colors.amber,
+            sensorTitle: AppLocalizations.of(context)
+                .translate("temperature_title"),
+            sensorValue: AppLocalizations.of(context).translate("no_sensor_value"),
+            sensorUnit: "",
+            icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters,
+                size: iconSize),
+            iconEvolution: FaIcon(Icons.error,
+                color: Colors.red, size: iconEvolSize),
+          );
+        } else {
+          double temp = esp.sensors["Temperature"];
+          tempSensor.currentValue = temp.round();
+          Widget icon = tempSensor.evolutionIconSelector();
+
+          return SensorDisplayer(
+            cardColor: Colors.amber,
+            sensorTitle:
+                AppLocalizations.of(context).translate("temperature_title"),
+            sensorValue: tempSensor.currentValue.toString(),
+            sensorUnit: AppLocalizations.of(context)
+                .translate("temperature_unit_short"),
+            icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters,
+                size: iconSize),
+            /*iconEvolution: AnimatedSwitcher(
+                duration: Duration(seconds: 1),
+                child: co2Sensor.evolutionIconSelector(),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(child: child, scale: animation);
+                },
+              )*/
+          );
+        }
+      },
+    );
+  }
+
+/*
+  FutureBuilder<double>(
       future: ESPServices().getTemp(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
@@ -93,21 +138,6 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
         }
         return Container();
       },
-    );
-  }
-
-  @override
-  void dispose() {
-    _enableRefresh = false;
-    //timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    //refresh(_enableRefresh);
-    super.initState();
-  }
+    )
+   */
 }
-
-

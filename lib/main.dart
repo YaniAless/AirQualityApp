@@ -133,9 +133,9 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(MyApp.appName),
           backgroundColor: Colors.lightGreen,
         ),
-        body: ChangeNotifierProvider(
-            child: pages[_currentIndex],
+        body: ListenableProvider<ESP>(
           create: (context) => ESP(),
+          child: pages[_currentIndex],
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );

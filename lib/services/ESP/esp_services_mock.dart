@@ -31,7 +31,8 @@ class MockESPServices implements ESPService{
 
   @override
   Future<ESP> getSettings() async {
-    ESP fakeESP = new ESP(caseName:"ESP1", caseType: "AQ1", sensors:{"Temperature":0,"Humidity":0,"CO2":0,"TVOC":0});
+    ESP fakeESP = ESP();
+    fakeESP.setESP("ESP1", "AQ1", {"Temperature":0,"Humidity":0,"CO2":0,"TVOC":0});
     return fakeESP;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/co2.dart';
+import 'package:airquality/components/sensors/humidity.dart';
+import 'package:airquality/components/sensors/temperature.dart';
 import 'package:airquality/components/sensors/tvoc.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/services/ESP/esp_services.dart';
@@ -18,12 +20,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void setState(fn) {
-
-    super.setState(fn);
   }
 
   @override
@@ -66,6 +62,11 @@ class _DashboardState extends State<Dashboard> {
                 future: ESPServices().getSettings(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return Container(
+                          child: Text(AppLocalizations.of(context).translate("empty_device"))
+                      );
+                      break;
                     case ConnectionState.waiting:
                       return CircularProgressIndicator();
                       break;
@@ -115,13 +116,12 @@ class _DashboardState extends State<Dashboard> {
           children: <Widget>[
             Expanded(
               child: Column(
-                verticalDirection: VerticalDirection.down,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  //TemperatureSensor(),
-                  //HumiditySensor(),
                   CO2Sensor(),
-                  TVOCSensor()
+                  TVOCSensor(),
+                  TemperatureSensor(),
+                  HumiditySensor(),
                 ],
               ),
             )

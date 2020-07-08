@@ -27,26 +27,72 @@ class _HumiditySensorState extends State<HumiditySensor> {
 
   // Refreshing
   Timer timer;
-  bool _firstLoad = true;
-  bool _enableRefresh = true;
 
-  refresh(bool enableRefresh){
-    timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) {
-      if(_enableRefresh){
-        setState(() {
-          _firstLoad = false;
-          humiditySensor.oldValue = humiditySensor.currentValue;
-        });
-      }
+  _fetchHumidity() {
+    timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) async {
+      int humid = await ESPServices().getHumidity();
+      ESP esp = Provider.of(context, listen: false);
+      esp.setSensorsValue("Humidity", humid);
+      //print(esp.sensors);
     });
+  }
+
+  @override
+  void dispose() {
+    if(timer.isActive)
+      timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _fetchHumidity();
+    super.initState();
   }
 
 
   @override
   Widget build(BuildContext context) {
-    var esp = Provider.of<ESP>(context);
+    return Consumer<ESP>(
+      builder: (context, esp, child) {
+        if(esp.sensors["Humidity"] == null){
+          return SensorDisplayer(
+            cardColor: Colors.lightBlueAccent,
+            sensorTitle:
+            AppLocalizations.of(context).translate("humidity_name"),
+            sensorValue: AppLocalizations.of(context).translate("no_sensor_value"),
+            sensorUnit: "",
+            icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
+            iconEvolution: FaIcon(Icons.error,
+                color: Colors.red, size: iconEvolSize),
+          );
+        } else {
+          humiditySensor.currentValue = esp.sensors["Humidity"];
+          Widget icon = humiditySensor.evolutionIconSelector();
+          return SensorDisplayer(
+            cardColor: Colors.lightBlueAccent,
+            sensorTitle:
+            AppLocalizations.of(context).translate("humidity_name"),
+            sensorValue: humiditySensor.currentValue.toString(),
+            sensorUnit: "%",
+            icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
+              /*iconEvolution: AnimatedSwitcher(
+                duration: Duration(seconds: 1),
+                child: co2Sensor.evolutionIconSelector(),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(child: child, scale: animation);
+                },
+              )*/
+          );
+        }
+      }
+    );
+  }
 
-    return FutureBuilder<int>(
+
+
+  /*
+  FutureBuilder<int>(
       future: ESPServices().getHumidity(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch(snapshot.connectionState){
@@ -90,20 +136,6 @@ class _HumiditySensorState extends State<HumiditySensor> {
         }
         return Container();
       },
-    );
-  }
-
-  @override
-  void dispose() {
-    _enableRefresh = false;
-    timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    if(_enableRefresh)
-      refresh(_enableRefresh);
-    super.initState();
-  }
+    )
+   */
 }

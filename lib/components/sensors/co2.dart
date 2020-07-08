@@ -17,17 +17,20 @@ class CO2Sensor extends StatefulWidget {
 class _CO2SensorState extends State<CO2Sensor> {
   final double iconSize = 30;
   final double iconEvolSize = 50;
-  final int refreshDelay = 3;
+  final int refreshDelay = 2;
 
   // Sensor Data
-  Sensor co2Sensor = Sensor();
+  Sensor co2Sensor = Sensor(type: "CO2");
+
+  // Refreshing
   Timer timer;
+
   _fetchCO2() {
     timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) async {
       int co2Value = await ESPServices().getCO2();
       ESP esp = Provider.of(context, listen: false);
+      co2Sensor.oldValue = co2Sensor.currentValue;
       esp.setSensorsValue("CO2", co2Value);
-      print(esp.sensors);
     });
   }
 
@@ -46,74 +49,74 @@ class _CO2SensorState extends State<CO2Sensor> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ESP>(
-      builder: (context, esp, child) {
-        co2Sensor.currentValue = esp.sensors["CO2"];
-        Widget icon = co2Sensor.evolutionIconSelector();
-        co2Sensor.oldValue = co2Sensor.currentValue;
-        return SensorDisplayer(
-          cardColor: Colors.grey,
-          sensorTitle: AppLocalizations.of(context).translate("co2_title"),
-          sensorValue: co2Sensor.currentValue.toString(),
-          sensorUnit: AppLocalizations.of(context).translate("co2_unit_short"),
-          icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
-          iconEvolution: AnimatedSwitcher(
-            duration: Duration(seconds: 2),
-            child: icon,
-            transitionBuilder: (child, animation) {
-              return ScaleTransition(child: child, scale: animation);
-            },
-          ),
-        );
-      },
+    return Container(
+      child: Consumer<ESP>(
+        builder: (context, esp, child) {
+          if(esp.sensors["CO2"] == null){
+            return SensorDisplayer(
+              cardColor: Colors.grey,
+              sensorTitle:
+              AppLocalizations.of(context).translate("co2_title"),
+              sensorValue: AppLocalizations.of(context).translate("no_sensor_value"),
+              sensorUnit: "",
+              icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
+              iconEvolution: FaIcon(Icons.error,
+                  color: Colors.red, size: iconEvolSize),
+            );
+          } else {
+            co2Sensor.currentValue = esp.sensors["CO2"];
+            return SensorDisplayer(
+              cardColor: Colors.grey,
+              sensorTitle: AppLocalizations.of(context).translate("co2_title"),
+              sensorValue: co2Sensor.currentValue.toString(),
+              sensorUnit: AppLocalizations.of(context).translate("co2_unit_short"),
+              icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
+              /*iconEvolution: AnimatedSwitcher(
+                duration: Duration(seconds: 1),
+                child: co2Sensor.evolutionIconSelector(),
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(child: child, scale: animation);
+                },
+              )*/
+            );
+          }
+        },
+      ),
     );
   }
 }
-
 /*
-FutureBuilder(
-        future: ESPServices().getCO2(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          switch(snapshot.connectionState){
-            case ConnectionState.waiting:
-              return LinearProgressIndicator();
-              break;
-            case ConnectionState.done:
-              if(snapshot.hasData){
-                co2Sensor.currentValue = snapshot.data;
-                Widget icon = co2Sensor.evolutionIconSelector();
-                return SensorDisplayer(
-                  cardColor: Colors.grey,
-                  sensorTitle:
-                  AppLocalizations.of(context).translate("co2_title"),
-                  sensorValue: co2Sensor.currentValue.toString(),
-                  sensorUnit: AppLocalizations.of(context)
-                      .translate("co2_unit_short"),
-                  icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
-                  iconEvolution: AnimatedSwitcher(
-                    duration: Duration(seconds: 2),
-                    child: icon,
-                    transitionBuilder: (child, animation) {
-                      return ScaleTransition(child: child, scale: animation);
-                    },
-                  ),
-                );
-              }
-              if(snapshot.hasError){
-                return SensorDisplayer(
-                  cardColor: Colors.grey,
-                  sensorTitle:
-                  AppLocalizations.of(context).translate("co2_title"),
-                  sensorValue: AppLocalizations.of(context).translate("no_sensor_value"),
-                  sensorUnit: "",
-                  icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
-                  iconEvolution: FaIcon(Icons.error,
-                      color: Colors.red, size: iconEvolSize),
-                );
-              }
-              break;
-          }
-          return Container();
-        },
-      )
+Consumer<ESP>(
+      builder: (context, esp, child) {
+        if(esp.sensors["CO2"] == null){
+          return SensorDisplayer(
+            cardColor: Colors.grey,
+            sensorTitle:
+            AppLocalizations.of(context).translate("co2_title"),
+            sensorValue: AppLocalizations.of(context).translate("no_sensor_value"),
+            sensorUnit: "",
+            icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
+            iconEvolution: FaIcon(Icons.error,
+                color: Colors.red, size: iconEvolSize),
+          );
+        } else {
+          co2Sensor.currentValue = esp.sensors["CO2"];
+          Widget icon = co2Sensor.evolutionIconSelector();
+          return SensorDisplayer(
+            cardColor: Colors.grey,
+            sensorTitle: AppLocalizations.of(context).translate("co2_title"),
+            sensorValue: co2Sensor.currentValue.toString(),
+            sensorUnit: AppLocalizations.of(context).translate("co2_unit_short"),
+            icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
+            iconEvolution: AnimatedSwitcher(
+              duration: Duration(seconds: 1),
+              child: icon,
+              transitionBuilder: (child, animation) {
+                return ScaleTransition(child: child, scale: animation);
+              },
+            ),
+          );
+        }
+      },
+    )
  */
