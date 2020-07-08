@@ -28,7 +28,7 @@ class ESPServices implements ESPService{
   Future<ESP> getSettings() async {
     try {
       final host = await _retrieveHostAndPortInLocalPref();
-      final response = await http.get("$host/settings").timeout(Duration(seconds: 5));
+      final response = await http.get("$host/settings").timeout(Duration(seconds: 30));
       if(response.statusCode != 200){
         throw Error();
       }

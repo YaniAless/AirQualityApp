@@ -20,13 +20,23 @@ class Account extends StatelessWidget {
         Expanded(
           child: ListView(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 25, 0, 10),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 70.0,
+                  child: Image(
+                    image: AssetImage('assets/AQ_logo_small.png'),
+                  ),
+                ),
+              ),
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text(user.email),
               ),
               ListTile(
                 leading: Icon(Icons.date_range),
-                title: Text(DateFormat('yyyy-MM-dd HH:mm').format(user.creationDate.toLocal()).toString()),
+                title: Text(DateFormat('yyyy-MM-dd').format(user.creationDate).toString()),
               ),
               ListTile(
                 leading: Icon(Icons.person),
