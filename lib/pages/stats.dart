@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 class Stats extends StatefulWidget {
   @override
   _StatsState createState() => _StatsState();
@@ -19,11 +18,17 @@ class _StatsState extends State<Stats> {
   ESP settings;
 
   Future _getSettings;
-  Map<String, List<SensorData>> _getUserInfo = {"Temperature":  null, "Humidity": null, "CO2": null, "TVOC": null};
+  Map<String, List<SensorData>> _getUserInfo = {
+    "Temperature": null,
+    "Humidity": null,
+    "CO2": null,
+    "TVOC": null
+  };
 
   @override
   void initState() {
     _getSettings = ESPServices().getSettings();
+
     super.initState();
   }
 
@@ -31,11 +36,16 @@ class _StatsState extends State<Stats> {
   String _endDate = DateTime.now().toString();
 
   _handleDatePicker(String pickerChoice) {
-    showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime(2100))
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime(2100))
         .then((pickedDate) {
-      if(pickedDate != null){
-        String selectedDate = DateFormat('yyyy-MM-dd').format(pickedDate).toString();
-        switch(pickerChoice){
+      if (pickedDate != null) {
+        String selectedDate =
+            DateFormat('yyyy-MM-dd').format(pickedDate).toString();
+        switch (pickerChoice) {
           case "start":
             setState(() {
               _startDate = selectedDate;
@@ -52,12 +62,19 @@ class _StatsState extends State<Stats> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<SensorData>> getUserInfo = {"Temperature":  null, "Humidity": null, "CO2": null, "TVOC": null};
+    Map<String, List<SensorData>> getUserInfo = {
+      "Temperature": null,
+      "Humidity": null,
+      "CO2": null,
+      "TVOC": null
+    };
     final user = Provider.of<User>(context);
     DateTime fakeDate1 = DateTime.parse("2020-07-07");
     DateTime fakeDate2 = DateTime.parse("2020-07-09");
+    print(GetUserInfo()
+        .getSensorValuesByDate(
+        user.uid, fakeDate1, fakeDate2));
 
-    GetUserInfo.getGeneral(user.uid, fakeDate1, fakeDate2);
     return InkWell(
       child: SingleChildScrollView(
         child: Column(
@@ -87,13 +104,6 @@ class _StatsState extends State<Stats> {
                   case ConnectionState.done:
                     if (snapshot.hasData) {
                       settings = snapshot.data;
-
-                        settings.sensors.forEach((key, value) async {
-                          getUserInfo[key] =
-                          await GetUserInfo().getSensorValuesByDate(
-                              user.uid, fakeDate1, fakeDate2, key);
-                          print(getUserInfo["Temperature"].length);
-                        });
                       return Card(
                         child: ListTile(
                           title: Padding(
@@ -110,25 +120,38 @@ class _StatsState extends State<Stats> {
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return ExpansionTile(
-                                title: Text(settings.sensors.keys.elementAt(index)),
+                                title: Text(
+                                    settings.sensors.keys.elementAt(index)),
                                 subtitle: Text(AppLocalizations.of(context)
                                     .translate("sensor_stats_hint")),
                                 children: <Widget>[
-                                  SfCartesianChart(
-                                    primaryXAxis: CategoryAxis(),
-                                    series: <LineSeries<SensorData, String>>[
-                                      LineSeries<SensorData, String>(
-                                          dataSource: getUserInfo[settings.sensors.keys.elementAt(index)],
-                                          xValueMapper: (SensorData sensor, _) =>
-                                              sensor.day,
-                                          yValueMapper: (SensorData sensor, _) =>
-                                          sensor.sensorValue,
-                                          // Enable data label
-                                          dataLabelSettings: DataLabelSettings(
-                                              isVisible: true)),
-
-                                    ],
-                                  ),
+                                  new FutureBuilder(
+                                      future: GetUserInfo()
+                                          .getSensorValuesByDate(
+                                              user.uid, fakeDate1, fakeDate2),
+                                      builder: (context, snapshot) {
+                                        print(snapshot.data);
+                                        return SfCartesianChart(
+                                          primaryXAxis: CategoryAxis(),
+                                          series: <
+                                              LineSeries<SensorData, String>>[
+                                            LineSeries<SensorData, String>(
+                                                dataSource: snapshot.data[
+                                                    settings.sensors.keys
+                                                        .elementAt(index)],
+                                                xValueMapper:
+                                                    (SensorData sensor, _) =>
+                                                        sensor.hour,
+                                                yValueMapper:
+                                                    (SensorData sensor, _) =>
+                                                        sensor.sensorValue,
+                                                // Enable data label
+                                                dataLabelSettings:
+                                                    DataLabelSettings(
+                                                        isVisible: true)),
+                                          ],
+                                        );
+                                      }),
                                 ],
                               );
                             },
@@ -164,7 +187,8 @@ onTap: _handleDatePicker("end"),
 )*/
 
 class SensorData {
-  SensorData(this.day, this.sensorValue);
-  final String day;
+  SensorData(this.hour, this.sensorValue);
+
+  final String hour;
   final double sensorValue;
 }
