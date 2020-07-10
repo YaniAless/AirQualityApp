@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+
 class Stats extends StatefulWidget {
   @override
   _StatsState createState() => _StatsState();
@@ -18,7 +19,7 @@ class _StatsState extends State<Stats> {
   ESP settings;
 
   Future _getSettings;
-  Future _getUserInfo;
+  Map<String, List<SensorData>> _getUserInfo = {"Temperature":  null, "Humidity": null, "CO2": null, "TVOC": null};
 
   @override
   void initState() {
@@ -51,9 +52,11 @@ class _StatsState extends State<Stats> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, List<SensorData>> getUserInfo = {"Temperature":  null, "Humidity": null, "CO2": null, "TVOC": null};
     final user = Provider.of<User>(context);
     DateTime fakeDate1 = DateTime.parse("2020-07-07");
     DateTime fakeDate2 = DateTime.parse("2020-07-09");
+
     GetUserInfo.getGeneral(user.uid, fakeDate1, fakeDate2);
     return InkWell(
       child: SingleChildScrollView(
@@ -84,6 +87,13 @@ class _StatsState extends State<Stats> {
                   case ConnectionState.done:
                     if (snapshot.hasData) {
                       settings = snapshot.data;
+
+                        settings.sensors.forEach((key, value) async {
+                          getUserInfo[key] =
+                          await GetUserInfo().getSensorValuesByDate(
+                              user.uid, fakeDate1, fakeDate2, key);
+                          print(getUserInfo["Temperature"].length);
+                        });
                       return Card(
                         child: ListTile(
                           title: Padding(
@@ -108,13 +118,7 @@ class _StatsState extends State<Stats> {
                                     primaryXAxis: CategoryAxis(),
                                     series: <LineSeries<SensorData, String>>[
                                       LineSeries<SensorData, String>(
-                                          dataSource: <SensorData>[
-                                            SensorData('Mon', 450),
-                                            SensorData('Tue', 500),
-                                            SensorData('Wed', 480),
-                                            SensorData('Thu', 600),
-                                            SensorData('Fri', 520)
-                                          ],
+                                          dataSource: getUserInfo[settings.sensors.keys.elementAt(index)],
                                           xValueMapper: (SensorData sensor, _) =>
                                               sensor.day,
                                           yValueMapper: (SensorData sensor, _) =>
@@ -122,22 +126,7 @@ class _StatsState extends State<Stats> {
                                           // Enable data label
                                           dataLabelSettings: DataLabelSettings(
                                               isVisible: true)),
-                                      LineSeries<SensorData, String>(
-                                          dataSource: <SensorData>[
-                                            SensorData('Mon', 1000),
-                                            SensorData('Tue', 1000),
-                                            SensorData('Wed', 1000),
-                                            SensorData('Thu', 1000),
-                                            SensorData('Fri', 1000)
-                                          ],
-                                          xValueMapper: (SensorData sensor, _) =>
-                                          sensor.day,
-                                          yValueMapper: (SensorData sensor, _) =>
-                                          sensor.sensorValue,
-                                          // Enable data label
-                                          dataLabelSettings: DataLabelSettings(
-                                              isVisible: true),
-                                      ),
+
                                     ],
                                   ),
                                 ],
