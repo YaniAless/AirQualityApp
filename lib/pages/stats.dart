@@ -62,19 +62,9 @@ class _StatsState extends State<Stats> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, List<SensorData>> getUserInfo = {
-      "Temperature": null,
-      "Humidity": null,
-      "CO2": null,
-      "TVOC": null
-    };
-    final user = Provider.of<User>(context);
     DateTime fakeDate1 = DateTime.parse("2020-07-07");
     DateTime fakeDate2 = DateTime.parse("2020-07-09");
-    print(GetUserInfo()
-        .getSensorValuesByDate(
-        user.uid, fakeDate1, fakeDate2));
-
+    final user = Provider.of<User>(context);
     return InkWell(
       child: SingleChildScrollView(
         child: Column(
@@ -130,27 +120,40 @@ class _StatsState extends State<Stats> {
                                           .getSensorValuesByDate(
                                               user.uid, fakeDate1, fakeDate2),
                                       builder: (context, snapshot) {
-                                        print(snapshot.data);
-                                        return SfCartesianChart(
-                                          primaryXAxis: CategoryAxis(),
-                                          series: <
-                                              LineSeries<SensorData, String>>[
-                                            LineSeries<SensorData, String>(
-                                                dataSource: snapshot.data[
-                                                    settings.sensors.keys
-                                                        .elementAt(index)],
-                                                xValueMapper:
-                                                    (SensorData sensor, _) =>
-                                                        sensor.hour,
-                                                yValueMapper:
-                                                    (SensorData sensor, _) =>
-                                                        sensor.sensorValue,
-                                                // Enable data label
-                                                dataLabelSettings:
-                                                    DataLabelSettings(
-                                                        isVisible: true)),
-                                          ],
-                                        );
+                                        switch (snapshot.connectionState) {
+                                          case ConnectionState.none:
+                                            return Container();
+                                            break;
+                                          case ConnectionState.waiting:
+                                            return CircularProgressIndicator();
+                                            break;
+                                          case ConnectionState.done:
+                                            return SfCartesianChart(
+                                              primaryXAxis: CategoryAxis(),
+                                              series: <
+                                                  LineSeries<SensorData,
+                                                      String>>[
+                                                LineSeries<SensorData, String>(
+                                                    dataSource: snapshot.data[
+                                                        settings.sensors.keys
+                                                            .elementAt(index)],
+                                                    xValueMapper:
+                                                        (SensorData sensor,
+                                                                _) =>
+                                                            sensor.hour,
+                                                    yValueMapper:
+                                                        (SensorData sensor,
+                                                                _) =>
+                                                            sensor.sensorValue,
+                                                    // Enable data label
+                                                    dataLabelSettings:
+                                                        DataLabelSettings(
+                                                            isVisible: true)),
+                                              ],
+                                            );
+                                            break;
+                                        }
+                                        return Container();
                                       }),
                                 ],
                               );

@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:airquality/pages/stats.dart';
 import 'package:http/http.dart' as http;
-import 'package:synchronized/synchronized.dart';
 import 'package:intl/intl.dart';
+import 'package:synchronized/synchronized.dart';
 
 class GetUserInfo {
-  static String host = "http://192.168.1.14:8080";
-
-  /// TODO A MODIFIER
+  static String host = "https://apiairquality.herokuapp.com/";
 
   static Future<Map<String, dynamic>> getGeneral(
       String uid, DateTime startDate, DateTime endDate) async {
