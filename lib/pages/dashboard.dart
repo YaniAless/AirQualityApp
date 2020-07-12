@@ -1,46 +1,119 @@
+import 'dart:async';
 
 import 'package:airquality/app_localizations.dart';
-import 'package:airquality/custom_widgets/sensor_displayer.dart';
+import 'package:airquality/components/page_header.dart';
+import 'package:airquality/components/sensors/co2.dart';
+import 'package:airquality/components/sensors/humidity.dart';
+import 'package:airquality/components/sensors/temperature.dart';
+import 'package:airquality/components/sensors/tvoc.dart';
+import 'package:airquality/models/esp.dart';
+import 'package:airquality/models/user.dart';
+import 'package:airquality/services/ESP/esp_services_mock.dart';
+import 'package:airquality/services/firebase/sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
 
-  double iconSize = 30;
-  double iconEvolSize = 50;
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  Timer timer;
+  _sendSensorsData(){
+    timer = Timer.periodic(Duration(seconds:35,minutes: 0), (timer) {
+      try{
+        final user = Provider.of<User>(context, listen: false);
+        ESP esp = Provider.of<ESP>(context, listen: false);
+
+        if(user != null && esp.isSensorsDataAvailable()) {
+          SenderService().synchroData(user.uid, esp);
+        }
+        if(user == null){
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              duration: Duration(seconds: 15),
+              content: Text(AppLocalizations.of(context).translate("not_connected_msg")),
+              backgroundColor: Colors.deepOrangeAccent,
+            )
+          );
+        }
+      } catch(err){
+        print("Could not send data");
+      }
+    });
+  }
+  @override
+  void initState() {
+    _sendSensorsData();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if(timer.isActive)
+      timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ESP esp = Provider.of<ESP>(context, listen: false);
     return Column(
       children: <Widget>[
+        PageHeader(translationLabel: "dashboard_title"),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Text(AppLocalizations.of(context).translate("dashboard_title"), style: TextStyle(
-                  fontSize: 26,
+                child: Text(
+                  AppLocalizations.of(context).translate("connected_to"),
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Text(AppLocalizations.of(context).translate("connected_to")),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Text(AppLocalizations.of(context).translate("empty_device")),
+              child: FutureBuilder<ESP>(
+                future: MockESPServices().getSettings(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return Container(
+                          child: Text(AppLocalizations.of(context)
+                              .translate("empty_device")));
+                      break;
+                    case ConnectionState.waiting:
+                      return CircularProgressIndicator();
+                      break;
+                    case ConnectionState.done:
+                      if(snapshot.hasData){
+                        esp = snapshot.data;
+                        return Text(esp.caseName);
+                      }
+                      if (snapshot.hasError || esp == null){
+                        return Container(
+                            child: Text(AppLocalizations.of(context).translate("empty_device"))
+                        );
+                      }
+                      return Container(
+                          child: Text(AppLocalizations.of(context).translate("empty_device"))
+                      );
+                      break;
+                    default:
+                      return Container(
+                          child: Text(AppLocalizations.of(context).translate("empty_device"))
+                      );
+                      break;
+                  }
+                },
+                initialData: esp,
               ),
             )
           ],
@@ -49,14 +122,14 @@ class Dashboard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             RaisedButton(
-              onPressed: (){
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
+              onPressed: () {
+                setState(() {
+                  Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text("Refresh"),
                     backgroundColor: Colors.deepOrange,
-                    duration: Duration(seconds: 1),
-                  )
-                );
+                    duration: Duration(seconds: 2),
+                  ));
+                });
               },
               child: Icon(
                 Icons.refresh,
@@ -70,33 +143,12 @@ class Dashboard extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: Column(
-                verticalDirection: VerticalDirection.down,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  SensorDisplayer(
-                    cardColor: Colors.amber,
-                    sensorTitle: AppLocalizations.of(context).translate("temperature_title"),
-                    sensorValue: "25",
-                    sensorUnit: AppLocalizations.of(context).translate("temperature_unit_short"),
-                    icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters, size: iconSize),
-                    iconEvolution: FaIcon(Icons.arrow_upward, color: Colors.green, size: iconEvolSize),
-                  ),
-                  SensorDisplayer(
-                    cardColor: Colors.redAccent,
-                    sensorTitle: AppLocalizations.of(context).translate("co2_title"),
-                    sensorValue: "2000",
-                    sensorUnit: AppLocalizations.of(context).translate("co2_unit_short"),
-                    icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
-                    iconEvolution: FaIcon(FontAwesomeIcons.minus, color: Colors.grey, size: iconEvolSize),
-                  ),
-                  SensorDisplayer(
-                    cardColor: Colors.grey,
-                    sensorTitle: AppLocalizations.of(context).translate("tvoc_title"),
-                    sensorValue: "500",
-                    sensorUnit: AppLocalizations.of(context).translate("tvoc_unit_short"),
-                    icon: FaIcon(FontAwesomeIcons.cloud, size: iconSize),
-                    iconEvolution: FaIcon(Icons.arrow_downward, color: Colors.red, size: iconEvolSize),
-                  ),
+                  CO2Sensor(),
+                  TVOCSensor(),
+                  TemperatureSensor(),
+                  HumiditySensor(),
                 ],
               ),
             )
@@ -106,3 +158,6 @@ class Dashboard extends StatelessWidget {
     );
   }
 }
+
+
+

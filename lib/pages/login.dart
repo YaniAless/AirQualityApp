@@ -1,5 +1,5 @@
-import 'package:airquality/custom_widgets/sign_in.dart';
-import 'package:airquality/custom_widgets/sign_up.dart';
+import 'package:airquality/components/sign_in.dart';
+import 'package:airquality/components/sign_up.dart';
 import 'package:flutter/material.dart';
 
 import '../app_localizations.dart';
@@ -15,6 +15,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
           child: Row(
@@ -23,9 +24,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0,20,0,0),
                 child: RaisedButton(
-                  onPressed: (){
-                    setState(() => isSigningUp = false);
-                  },
+                  onPressed: () => setState(() => isSigningUp = false),
                   child: Text(AppLocalizations.of(context).translate("sign_in_button"), style: Theme.of(context).textTheme.button),
                   color: Theme.of(context).textTheme.button.backgroundColor,
                 ),
@@ -33,9 +32,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0,20,0,0),
                 child: RaisedButton(
-                  onPressed: (){
-                    setState(() => isSigningUp = true);
-                  },
+                  onPressed: () => setState(() => isSigningUp = true),
                   child: Text(AppLocalizations.of(context).translate("sign_up_button") , style: Theme.of(context).textTheme.button),
                   color: Theme.of(context).textTheme.button.backgroundColor,
                 ),
@@ -53,12 +50,17 @@ class _LoginState extends State<Login> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(35),
-              child: Text(AppLocalizations.of(context).translate("not_connected_msg"), style: TextStyle(
-                fontSize: 20,
-                color: Colors.pink,
-              ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 50, 0, 50),
+
+                child: Center(
+                  child: Text(AppLocalizations.of(context).translate("not_connected_msg"), style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.red,
+                  ),
+                  ),
+                ),
               ),
             )
           ],

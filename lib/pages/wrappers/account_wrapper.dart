@@ -11,6 +11,6 @@ class AccountWrapper extends StatelessWidget {
 
     final user = Provider.of<User>(context);
 
-    return user != null ? Account() : Login();
+    return user != null ? Account(user: user) : Login();
   }
 }
