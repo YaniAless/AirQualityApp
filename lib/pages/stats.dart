@@ -62,8 +62,8 @@ class _StatsState extends State<Stats> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime fakeDate1 = DateTime.parse("2020-07-07");
-    DateTime fakeDate2 = DateTime.parse("2020-07-09");
+    DateTime exampleStartDate = DateTime.parse("2020-07-07");
+    DateTime exampleEndDate = DateTime.parse("2020-07-09");
     final user = Provider.of<User>(context);
     return InkWell(
       child: SingleChildScrollView(
@@ -117,8 +117,8 @@ class _StatsState extends State<Stats> {
                                 children: <Widget>[
                                   new FutureBuilder(
                                       future: GetUserInfo()
-                                          .getSensorValuesByDate(
-                                              user.uid, fakeDate1, fakeDate2),
+                                          .getSensorValuesByDate(user.uid,
+                                              exampleStartDate, exampleEndDate),
                                       builder: (context, snapshot) {
                                         switch (snapshot.connectionState) {
                                           case ConnectionState.none:

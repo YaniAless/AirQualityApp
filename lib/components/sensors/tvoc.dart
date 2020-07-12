@@ -4,7 +4,7 @@ import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/sensor.dart';
-import 'package:airquality/services/ESP/esp_services.dart';
+import 'package:airquality/services/ESP/esp_services_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class _TVOCSensorState extends State<TVOCSensor> {
 
   _fetchTVOC() {
     timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) async {
-      int tvocValue = await ESPServices().getTVOC();
+      int tvocValue = await MockESPServices().getTVOC();
       ESP esp = Provider.of(context, listen: false);
       esp.setSensorsValue("TVOC", tvocValue);
     });
@@ -82,7 +82,4 @@ class _TVOCSensorState extends State<TVOCSensor> {
       },
     );
   }
-
-
-
 }
