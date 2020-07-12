@@ -8,7 +8,7 @@ import 'package:airquality/components/sensors/temperature.dart';
 import 'package:airquality/components/sensors/tvoc.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/user.dart';
-import 'package:airquality/services/ESP/esp_services.dart';
+import 'package:airquality/services/ESP/esp_services_mock.dart';
 import 'package:airquality/services/firebase/sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -81,13 +81,13 @@ class _DashboardState extends State<Dashboard> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<ESP>(
-                future: ESPServices().getSettings(),
+                future: MockESPServices().getSettings(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return Container(
-                          child: Text(AppLocalizations.of(context).translate("empty_device"))
-                      );
+                          child: Text(AppLocalizations.of(context)
+                              .translate("empty_device")));
                       break;
                     case ConnectionState.waiting:
                       return CircularProgressIndicator();

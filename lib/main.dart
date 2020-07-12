@@ -17,7 +17,6 @@ void main(){
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
 
   static const String appName = "Air Quality";
   static const String appVersion = "0.1.0";
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
         ],
         // These delegates make sure that the localization data for the proper language is loaded
         localizationsDelegates: [
-          // THIS CLASS WILL BE ADDED LATER
           // A class which loads the translations from JSON files
           AppLocalizations.delegate,
           // Built-in localization of basic text for Material widgets
@@ -137,10 +135,10 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(MyApp.appName),
           backgroundColor: Colors.lightGreen,
         ),
-        body: ListenableProvider<ESP>(
+        body: ChangeNotifierProvider<ESP>(
           create: (context) => ESP(),
           child: pages[_currentIndex],
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        ),
       ),
     );
   }
