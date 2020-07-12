@@ -3,7 +3,7 @@ import 'package:airquality/components/page_header.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/user.dart';
 import 'package:airquality/services/API/get_user_info.dart';
-import 'package:airquality/services/ESP/esp_services.dart';
+import 'package:airquality/services/ESP/esp_services_mock.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class _StatsState extends State<Stats> {
 
   @override
   void initState() {
-    _getSettings = ESPServices().getSettings();
+    _getSettings = MockESPServices().getSettings();
 
     super.initState();
   }

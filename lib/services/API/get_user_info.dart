@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:synchronized/synchronized.dart';
 
 class GetUserInfo {
-  static String host = "https://apiairquality.herokuapp.com/";
+  static String host = "https://apiairquality.herokuapp.com";
 
   static Future<Map<String, dynamic>> getGeneral(
       String uid, DateTime startDate, DateTime endDate) async {
@@ -21,7 +21,6 @@ class GetUserInfo {
     } catch (err) {
       print(err);
       print("Error while getting general data ");
-      print(err);
     }
   }
 
