@@ -10,8 +10,9 @@ class SensorDisplayer extends StatefulWidget {
     this.sensorValue,
     this.sensorUnit,
     this.icon,
-    this.iconEvolution
-  }): super(key: key);
+    this.iconEvolution,
+    this.detailsRoute,
+  }) : super(key: key);
 
   final Color cardColor;
   final String sensorTitle;
@@ -19,7 +20,7 @@ class SensorDisplayer extends StatefulWidget {
   final String sensorUnit;
   final Widget icon;
   final Widget iconEvolution;
-
+  final String detailsRoute;
 
   @override
   _SensorDisplayerState createState() => _SensorDisplayerState();
@@ -32,18 +33,21 @@ class _SensorDisplayerState extends State<SensorDisplayer> {
     return Card(
       color: widget.cardColor,
       child: ListTile(
-        onTap: () => print(widget.sensorTitle),
-        title: Text(widget.sensorTitle, style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.black54,
+        onTap: () => Navigator.of(context).pushNamed(widget.detailsRoute),
+        title: Text(
+          widget.sensorTitle,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black54,
+          ),
         ),
-        ),
-        subtitle: Text("${widget.sensorValue} ${widget.sensorUnit}", style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.black54,
-        )),
+        subtitle: Text("${widget.sensorValue} ${widget.sensorUnit}",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black54,
+            )),
         leading: widget.icon,
         trailing: widget.iconEvolution,
       ),

@@ -63,7 +63,7 @@ class _StatsState extends State<Stats> {
   @override
   Widget build(BuildContext context) {
     DateTime exampleStartDate = DateTime.parse("2020-07-07");
-    DateTime exampleEndDate = DateTime.parse("2020-07-09");
+    DateTime exampleEndDate = DateTime.parse("2020-07-13");
     final user = Provider.of<User>(context);
     return InkWell(
       child: SingleChildScrollView(

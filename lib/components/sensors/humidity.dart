@@ -4,7 +4,7 @@ import 'package:airquality/app_localizations.dart';
 import 'package:airquality/components/sensors/sensor_displayer.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/sensor.dart';
-import 'package:airquality/services/ESP/esp_services_mock.dart';
+import 'package:airquality/services/ESP/esp_services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class _HumiditySensorState extends State<HumiditySensor> {
 
   _fetchHumidity() {
     timer = Timer.periodic(Duration(seconds: refreshDelay), (timer) async {
-      int humid = await MockESPServices().getHumidity();
+      int humid = await ESPServices().getHumidity();
       ESP esp = Provider.of(context, listen: false);
       esp.setSensorsValue("Humidity", humid);
       //print(esp.sensors);
@@ -57,16 +57,17 @@ class _HumiditySensorState extends State<HumiditySensor> {
       builder: (context, esp, child) {
         if(esp.sensors["Humidity"] == null){
           return SensorDisplayer(
-            cardColor: Colors.lightBlueAccent,
-            sensorTitle:
-            AppLocalizations.of(context).translate("humidity_name"),
-            sensorValue: AppLocalizations.of(context).translate("no_sensor_value"),
-            sensorUnit: "",
-            icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
-            iconEvolution: FaIcon(Icons.error,
-                color: Colors.red, size: iconEvolSize),
-          );
-        } else {
+          cardColor: Colors.lightBlueAccent,
+          sensorTitle: AppLocalizations.of(context).translate("humidity_name"),
+          sensorValue:
+              AppLocalizations.of(context).translate("no_sensor_value"),
+          sensorUnit: "",
+          icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
+          detailsRoute: "/humidityDetail",
+          iconEvolution:
+              FaIcon(Icons.error, color: Colors.red, size: iconEvolSize),
+        );
+      } else {
           humiditySensor.currentValue = esp.sensors["Humidity"];
           //Widget icon = humiditySensor.evolutionIconSelector();
           return SensorDisplayer(
@@ -75,6 +76,7 @@ class _HumiditySensorState extends State<HumiditySensor> {
             AppLocalizations.of(context).translate("humidity_name"),
             sensorValue: humiditySensor.currentValue.toString(),
             sensorUnit: "%",
+            detailsRoute: "/humidityDetail",
             icon: FaIcon(FontAwesomeIcons.water, size: iconSize),
               /*iconEvolution: AnimatedSwitcher(
                 duration: Duration(seconds: 1),

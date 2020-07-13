@@ -1,4 +1,8 @@
 import 'package:airquality/app_localizations.dart';
+import 'package:airquality/components/sensors/detailed_pages/co2_detail.dart';
+import 'package:airquality/components/sensors/detailed_pages/humidity_detail.dart';
+import 'package:airquality/components/sensors/detailed_pages/temperature_detail.dart';
+import 'package:airquality/components/sensors/detailed_pages/tvoc_detail.dart';
 import 'package:airquality/models/esp.dart';
 import 'package:airquality/models/user.dart';
 import 'package:airquality/pages/dashboard.dart';
@@ -29,7 +33,7 @@ class MyApp extends StatelessWidget {
         title: appName,
         theme: ThemeData(
           primarySwatch: Colors.green,
-          primaryColor: Colors.green,
+          primaryColor: Colors.lightGreen[300],
           buttonColor: Colors.lightGreen[300],
           textTheme: TextTheme(
             button: TextStyle(
@@ -46,6 +50,13 @@ class MyApp extends StatelessWidget {
           Locale('en', 'US'),
           Locale('fr', 'FR'),
         ],
+        initialRoute: "/",
+        routes: {
+          "/co2Detail": (_) => CO2SensorDetail(),
+          "/tvocDetail": (_) => TVOCSensorDetail(),
+          "/temperatureDetail": (_) => TemperatureSensorDetail(),
+          "/humidityDetail": (_) => HumiditySensorDetail(),
+        },
         // These delegates make sure that the localization data for the proper language is loaded
         localizationsDelegates: [
           // A class which loads the translations from JSON files
@@ -93,7 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
