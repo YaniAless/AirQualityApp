@@ -4,10 +4,6 @@
   "account_page_label": "Mon Compte",
   "account_page_title": "Mon Compte",
   "params_page_label": "Paramètres",
-  "co2_detail_page": "Details sur le CO2",
-  "tvoc_detail_page": "Details sur le TCOV",
-  "humidity_detail_page": "Details sur l'humidité",
-  "temperature_detail_page": "Details sur la Température",
   "dashboard_title": "Données en temps réél",
   "connected_to": "Connecté à :",
   "empty_device": "Aucun appareil trouvé",
@@ -41,5 +37,9 @@
   "hint_local_ip_address": "Adresse IP locale de l'ESP",
   "hint_local_ip_port": "Port de l'IP locale de l'ESP",
   "about_us": "Plus d'infos...",
-  "credits": "Cette application mobile a été créée par\n"
+  "credits": "Cette application mobile a été créée par\n",
+  "co2_detail_page": "Details sur le CO2",
+  "tvoc_detail_page": "Details sur le TCOV",
+  "humidity_detail_page": "Details sur l'humidité",
+  "temperature_detail_page": "Details sur la Température"
 }

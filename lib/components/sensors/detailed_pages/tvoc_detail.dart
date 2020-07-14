@@ -21,7 +21,9 @@ class TVOCSensorDetail extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text("What is TVOC ?",
+                  Text(
+                      AppLocalizations.of(context)
+                          .translate("tvoc_detail_title_1"),
                       style: TextStyle(
                         fontSize: 50,
                       )),
@@ -31,19 +33,24 @@ class TVOCSensorDetail extends StatelessWidget {
                       text: TextSpan(
                         style: TextStyle(fontSize: 18, color: Colors.black),
                         children: [
-                          TextSpan(text: "\nTVOC is the "),
+                          TextSpan(text: AppLocalizations.of(context).translate(
+                              "tvoc_detail_para_1")),
                           TextSpan(
-                              text: "Total of Volatile Organic Compounds.",
+                              text: AppLocalizations.of(context).translate(
+                                  "tvoc_detail_para_2"),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.lightGreen)),
                           TextSpan(
                               text:
-                                  "\nThis is a mix a multiple organic chemicals that evaporates at low temperatures."),
-                          TextSpan(text: "\nThese chemicals are everywhere, "),
+                              AppLocalizations.of(context).translate(
+                                  "tvoc_detail_para_3")),
+                          TextSpan(text: AppLocalizations.of(context).translate(
+                              "tvoc_detail_para_4")),
                           TextSpan(
                               text:
-                                  "\nwhen you smell the famous 'new car odour' or even gasoline at a gas station this is not always a good thing"),
+                              AppLocalizations.of(context).translate(
+                                  "tvoc_detail_para_5")),
                         ],
                       ),
                     ),
@@ -56,7 +63,8 @@ class TVOCSensorDetail extends StatelessWidget {
                         children: [
                           TextSpan(
                               text:
-                                  "What these Volatile Organic Compounds levels mean ?"),
+                              AppLocalizations.of(context).translate(
+                                  "tvoc_detail_title_2")),
                         ],
                       ),
                     ),
@@ -65,18 +73,21 @@ class TVOCSensorDetail extends StatelessWidget {
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
                       TableRow(children: [
-                        Text("0-250 ppb",
+                        Text(AppLocalizations.of(context).translate(
+                            "tvoc_detail_level_1"),
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.green)),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                          child: Text("VOC content in air is low"),
+                          child: Text(AppLocalizations.of(context).translate(
+                              "tvoc_detail_level_1_infos")),
                         ),
                       ]),
                       TableRow(children: [
-                        Text("250 to 2000 ppb",
+                        Text(AppLocalizations.of(context).translate(
+                            "tvoc_detail_level_2"),
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -84,11 +95,13 @@ class TVOCSensorDetail extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                           child: Text(
-                              "Ventilate if levels persist for at least a month, and seek sources."),
+                              AppLocalizations.of(context).translate(
+                                  "tvoc_detail_level_2_infos")),
                         ),
                       ]),
                       TableRow(children: [
-                        Text("> 2000 ppb",
+                        Text(AppLocalizations.of(context).translate(
+                            "tvoc_detail_level_3"),
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -96,7 +109,8 @@ class TVOCSensorDetail extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                           child: Text(
-                              "The VOC content is very high, remember to take the necessary measures and ventilate without further delay."),
+                              AppLocalizations.of(context).translate(
+                                  "tvoc_detail_level_3_infos")),
                         ),
                       ]),
                     ],
@@ -110,33 +124,3 @@ class TVOCSensorDetail extends StatelessWidget {
     );
   }
 }
-
-/*
-Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Flexible(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text("0-250 ppb", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green)),
-                              Text("250 to 2000 ppb", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange)),
-                              Text("> 2000 ppb", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.redAccent)),
-                            ],
-                          ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text("VOC content in air is low"),
-                              Text("Ventilate if levels persist for at least a month, and seek sources."),
-                              Text("The VOC content is very high, remember to take the necessary measures and ventilate without further delay."),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
- */
