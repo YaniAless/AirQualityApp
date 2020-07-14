@@ -52,7 +52,7 @@
   "tvoc_detail_level_1": "0-250 ppb",
   "tvoc_detail_level_1_infos": "VOC content in air is low",
   "tvoc_detail_level_2": "250 to 2000 ppb",
-  "tvoc_detail_level_2_infos": "Ventilate if levels persist for at least a month, and seek sources.",
+  "tvoc_detail_level_2_infos": "Ventilate ! If levels persist for at least a month, and seek sources.",
   "tvoc_detail_level_3": "> 2000 ppb",
   "tvoc_detail_level_3_infos": "The VOC content is very high, remember to take the necessary measures and ventilate without further delay !",
   "co2_detail_title_1": "What is CO2 ?",
@@ -62,9 +62,9 @@
   "co2_detail_para_3": "\nIts rate is about 400 ppm in the air",
   "co2_detail_para_4": "\nBut it’s one of the greenhouse gases responsible for global warming. In terms of indoor air quality, depending on its concentration, it has health effects.",
   "co2_detail_level_1": "~ 850 ppm",
-  "co2_detail_level_1_infos": "If you have this average rate during your whole day. Nothing to worry about but still make sure to open your windows",
+  "co2_detail_level_1_infos": "If you have this average rate during your whole day. Nothing to worry about but still make sure to get some fresh air.",
   "co2_detail_level_2": "At 1000 ppm",
-  "co2_detail_level_2_infos": "Ventilate if levels persist for at least a month, and seek sources.",
+  "co2_detail_level_2_infos": "Ventilate ! If levels persist for at least a month, and seek sources.",
   "co2_detail_level_3": "> 10 000 ppm\n(~30 min)",
   "co2_detail_level_3_infos": "At this rate, during around 30 minutes, you're in danger ! It will provoke a psychomotor performance issue and you will have trouble to accomplish simple tasks."
 }
