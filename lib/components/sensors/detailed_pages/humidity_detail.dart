@@ -116,7 +116,7 @@ class HumiditySensorDetail extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                           child: Text(AppLocalizations.of(context).translate(
-                              "humid_detail_level_5_infos")),
+                              "humid_detail_level_4_infos")),
                         ),
                       ]),
                       TableRow(children: [
