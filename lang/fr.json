@@ -63,8 +63,22 @@
   "co2_detail_para_4": "\nC'est un des gaz à effet de serre responsable du réchauffement climatique. En terme de qualité de l'air intérieure, en fonction de sa concentration, cela peut avoir des effets sur la santé.",
   "co2_detail_level_1": "~ 850 ppm",
   "co2_detail_level_1_infos": "Si vous avez ce taux en moyenne sur la journée. Rien de grave, pensez à vous aérer la tête.",
-  "co2_detail_level_2": "At 1000 ppm",
+  "co2_detail_level_2": "A 1000 ppm",
   "co2_detail_level_2_infos": "Aérez ! Si les niveaux persistent pendant au moins un mois, et cherchez les sources.",
   "co2_detail_level_3": "> 10 000 ppm\n(~30 min)",
-  "co2_detail_level_3_infos": "A ce niveau, pendant au moins 30 minutes, vous êtes en danger ! Cela provoquera une altération de la performance phychomotrice et vous aurez des difficultés à accomplir de simples taches."
+  "co2_detail_level_3_infos": "A ce niveau, pendant au moins 30 minutes, vous êtes en danger ! Cela provoquera une altération de la performance phychomotrice et vous aurez des difficultés à accomplir de simples taches.",
+  "humid_detail_title_1": "Qu'est-ce que l'humidité ?",
+  "humid_detail_title_2": "Quel est le taux taux recommandé par les médecins ?",
+  "humid_detail_title_3": "Quelles sont les conséquences d'un taux trop important ou trop faible ?",
+  "humid_detail_para_1": "L’humidité est un facteur qui peut être nocif pour la santé selon son taux.",
+  "humid_detail_para_2": " On parle d’hygrométrie ou humidité relative : pourcentage de vapeur d’eau présent dans l’air comparé à la quantité maximal que l’air peut absorber.",
+  "humid_detail_para_3": "\nLe taux évolue en fonction de la saison notamment ou la température ou encore du chauffage choisi et bien d’autres paramètres.",
+  "humid_detail_level_1": "En terme général 40 à 60 % et pour les personnes fragiles 45 à 55%. ",
+  "humid_detail_level_2": "Tandis qu'en Hiver le taux recommandé est de 30 à 50 %",
+  "humid_detail_level_3": "En dehors de ces tranches, l’air ambiant est trop sec ou trop humide.",
+  "humid_detail_level_4": "Air sec, en deçà de\n30 ou 45 %",
+  "humid_detail_level_4_infos": "Augmentation des irritations pulmonaires oculaires, des allergies ou crises d’asthme, assèchement des muqueuses, déshydratation, etc.",
+  "humid_detail_level_5": "Trop humide,\n > 65%",
+  "humid_detail_level_5_infos": "Prolifération de microbes ou micro-organismes à l’origine d’infections ou allergies (acariens), \ndéveloppement de champignons et/ou moisissure, décollement du papier ou dégradation peinture."
+
 }

@@ -31,6 +31,7 @@ class _SensorDisplayerState extends State<SensorDisplayer> {
   @override
   Widget build(BuildContext context) {
     return Card(
+
       color: widget.cardColor,
       child: ListTile(
         onTap: () => Navigator.of(context).pushNamed(widget.detailsRoute),

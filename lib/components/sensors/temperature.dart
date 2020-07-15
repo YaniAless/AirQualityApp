@@ -59,7 +59,7 @@ class _TemperatureSensorState extends State<TemperatureSensor> {
             sensorUnit: "",
             icon: FaIcon(FontAwesomeIcons.thermometerThreeQuarters,
                 size: iconSize),
-            detailsRoute: "/temperatureDetail",
+            //detailsRoute: "/temperatureDetail",
             iconEvolution:
                 FaIcon(Icons.error, color: Colors.red, size: iconEvolSize),
           );
