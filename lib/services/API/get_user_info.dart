@@ -48,13 +48,15 @@ class GetUserInfo {
           days.forEach((_day, valD) {
             final Map<String, dynamic> hours = valD.cast<String, dynamic>();
             hours.forEach((_hour, valH) {
-              final Map<String, dynamic> sensorList =
-                  valH.cast<String, dynamic>();
+              if(valH[sensor] != null) {
+                final Map<String, dynamic> sensorList =
+                valH.cast<String, dynamic>();
+                uInfoList.add(UserInfoDetailed(
+                    day: _day,
+                    hour: _hour,
+                    sensorValues: sensorList[sensor].toDouble()));
+              }
 
-              uInfoList.add(UserInfoDetailed(
-                  day: _day,
-                  hour: _hour,
-                  sensorValues: sensorList[sensor].toDouble()));
             });
           });
         });

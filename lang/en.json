@@ -66,5 +66,18 @@
   "co2_detail_level_2": "At 1000 ppm",
   "co2_detail_level_2_infos": "Ventilate ! If levels persist for at least a month, and seek sources.",
   "co2_detail_level_3": "> 10 000 ppm\n(~30 min)",
-  "co2_detail_level_3_infos": "At this rate, during around 30 minutes, you're in danger ! It will provoke a psychomotor performance issue and you will have trouble to accomplish simple tasks."
+  "co2_detail_level_3_infos": "At this rate, during around 30 minutes, you're in danger ! It will provoke a psychomotor performance issue and you will have trouble to accomplish simple tasks.",
+  "humid_detail_title_1": "What is humidity ?",
+  "humid_detail_title_2": "What is the recommended rate by the doctors ?",
+  "humid_detail_title_3": "What are the consequences of a too high or too low rate ?",
+  "humid_detail_para_1": "Humidity is a factor that can be dangerous for health according to its rate.",
+  "humid_detail_para_2": " We are dealing with hygrometry or relative humidity : water vapor percentage in the air, compared to the maximal quantity that air can absorbs.",
+  "humid_detail_para_3": "\nThe rate changes depending on the season notably, the temperature, the chosen heating, and many more parameters.",
+  "humid_detail_level_1": "In general term, 40 to 60%, but for the vulnerable people, 45 to 55%.",
+  "humid_detail_level_2": "Whilst in winter, the recommended rate is 30 to 50%",
+  "humid_detail_level_3": "Apart from this range, the air is too dry or too damp",
+  "humid_detail_level_4": "Dry air, below\n30 to 45%",
+  "humid_detail_level_4_infos": "Increase of pulmonary irritation, allergies or asthma attacks, drying of mucous membranes, dehydration, etc.",
+  "humid_detail_level_5": "Too damp,\n>65%",
+  "humid_detail_level_5_infos": "Germs and micro_organisms spread, which are the sources of allergies (dust mites), molds and/or mushrooms growth, wallpaper detachment or paint deterioration."
 }
