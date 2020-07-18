@@ -66,6 +66,13 @@ class _CO2SensorState extends State<CO2Sensor> {
             );
           } else {
             co2Sensor.currentValue = esp.sensors["CO2"];
+            if(co2Sensor.currentValue > 600) {
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("ALERT ! CO2 IS TOO HIGH"),
+                backgroundColor: Colors.red,
+                duration: Duration(seconds: 5),
+              ));
+            }
             return SensorDisplayer(
               cardColor: Colors.grey,
               sensorTitle: AppLocalizations.of(context).translate("co2_title"),
